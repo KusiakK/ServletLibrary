@@ -1,0 +1,38 @@
+body {
+    color: #343a40;
+    font-family: 'Lato', sans-serif !important;
+    line-height: 1;
+}
+
+/*.navbar-brand {*/
+/*padding: 0 2rem;*/
+/*}*/
+
+.my-6 {
+    margin-bottom: 5rem;
+    margin-top: 4rem;
+}
+
+.opacity {
+    opacity: 0.5;
+}
+
+.dropdown-menu > a.text-light:focus, .dropdown-menu >  a.text-light:hover {
+    color: #5abcd6 !important;
+}
+
+.dropdown-menu > a.bg-info:focus, .dropdown-menu >  a.bg-info:hover, .dropdown-menu >  button.bg-info:focus, .dropdown-menu >  button.bg-info:hover {
+    background: #f8f9fa !important;
+}
+
+.btn-lg {
+    margin-top: 15px;
+}
+
+.par {
+    font-size: 1rem;
+}
+
+/*.copyright {*/
+/*padding: 0 2rem;*/
+/*}*/
