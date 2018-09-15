@@ -14,7 +14,7 @@ public class Book {
     @Id
     @Column(name = "id_books")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger bookID;
+    private Integer bookID;
 
     @Column(name = "borrow")
     private Boolean isBorrowed;
@@ -29,7 +29,6 @@ public class Book {
     private Integer pages;
 
     @Column(name = "release_date")
-    @Temporal(TemporalType.DATE)
     private LocalDate releaseDate;
 
     @Column(name = "summary")
@@ -38,16 +37,14 @@ public class Book {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "author")
     @ManyToOne
     @JoinColumn
     private Author author;
 
     @Column(name = "borrows")
-    @OneToMany(mappedBy = "books")
+    @OneToMany(mappedBy = "book")
     private Set<Borrow> borrows;
 
-    @Column(name = "borrowers")
     @ManyToMany
     @JoinColumn
     private List<Borrower> borrowers;
@@ -55,11 +52,11 @@ public class Book {
     public Book() {
     }
 
-    public BigInteger getBookID() {
+    public Integer getBookID() {
         return bookID;
     }
 
-    public void setBookID(BigInteger bookID) {
+    public void setBookID(Integer bookID) {
         this.bookID = bookID;
     }
 

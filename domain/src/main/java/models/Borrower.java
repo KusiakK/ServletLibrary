@@ -12,7 +12,7 @@ public class Borrower {
     @Id
     @Column(name = "id_borrower")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger borrowerID;
+    private Integer borrowerID;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -20,10 +20,9 @@ public class Borrower {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "borrowers")
+    @OneToMany(mappedBy = "borrower")
     private Set<Borrow> borrows;
 
-    @Column(name = "borrower_details")
     @OneToOne
     @JoinColumn
     private BorrowerDetails borrowerDetails;
@@ -31,11 +30,11 @@ public class Borrower {
     public Borrower() {
     }
 
-    public BigInteger getBorrowerID() {
+    public Integer getBorrowerID() {
         return borrowerID;
     }
 
-    public void setBorrowerID(BigInteger borrowerID) {
+    public void setBorrowerID(Integer borrowerID) {
         this.borrowerID = borrowerID;
     }
 

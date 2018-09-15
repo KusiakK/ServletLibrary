@@ -12,17 +12,15 @@ public class Borrow {
     @Id
     @Column(name = "id_borrow")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger borrowID;
+    private Integer borrowID;
 
-    @Column(name = "book_id")
     @ManyToOne
     @JoinColumn
-    private List<Book> books;
+    private Book book;
 
-    @Column(name = "borrower_id")
     @ManyToOne
     @JoinColumn
-    private List<Borrower> borrowers;
+    private Borrow borrower;
 
     @Column(name = "rental_date", nullable = false)
     private LocalDate rentalDate;

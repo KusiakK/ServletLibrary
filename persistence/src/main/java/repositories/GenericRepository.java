@@ -33,7 +33,7 @@ public abstract class GenericRepository<T, K> {
         }
     }
 
-    public T read(K id) {
+    public T read(int id) {
         return em.find(entityClass, id);
     }
 

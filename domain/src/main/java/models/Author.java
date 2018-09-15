@@ -1,20 +1,19 @@
 package models;
 
-import com.sun.istack.internal.Nullable;
 
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "authors")
-public class Author {
+public class Author implements Serializable {
 
     @Id
     @Column(name = "id_author")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger authorID;
+    private Integer authorID;
 
     @Column(name = "first_name", nullable= false)
     private String firstName;
@@ -31,11 +30,11 @@ public class Author {
     public Author() {
     }
 
-    public BigInteger getAuthorID() {
+    public Integer getAuthorID() {
         return authorID;
     }
 
-    public void setAuthorID(BigInteger authorID) {
+    public void setAuthorID(Integer authorID) {
         this.authorID = authorID;
     }
 
