@@ -11,7 +11,7 @@ public class BorrowerDetails {
     @Id
     @Column(name = "id_borrower_details")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger borrowerDetailsID;
+    private Integer borrowerDetailsID;
 
     @Column(name = "address")
     private String address;
@@ -22,17 +22,18 @@ public class BorrowerDetails {
     @Column(name = "phone")
     private String phone;
 
-    @OneToOne(mappedBy = "borrowedDetails")
+    @OneToOne(mappedBy = "borrowerDetails")
+    @JoinColumn
     private Borrower borrower;
 
     public BorrowerDetails() {
     }
 
-    public BigInteger getBorrowerDetailsID() {
+    public Integer getBorrowerDetailsID() {
         return borrowerDetailsID;
     }
 
-    public void setBorrowerDetailsID(BigInteger borrowerDetailsID) {
+    public void setBorrowerDetailsID(Integer borrowerDetailsID) {
         this.borrowerDetailsID = borrowerDetailsID;
     }
 

@@ -10,20 +10,23 @@ create table if not exists author (
 
 create table if not exists books (
 id_book      bigint(20)   not null unique,
-borrow       bit(1)       not null,
-category     varchar(255) not null,
-isbn         varchar(13),
+borrow       bit(1),
+category     varchar(255),
+isbn         varchar(13) not null,
 pages        int(11),
 release_date date,
 summary      varchar(350),
-title        varchar(255) not null,
-author_id    bigint(20)   not null,
+title        varchar(255),
+author_id    bigint(20),
 primary key (id_book)
 );
 
-create table if not exists authors_books (
-  author_id bigint(20) not null,
-  book_id   bigint(20) not null,
+create table if not exists borrow (
+  id_borrow bigint(20) not null unique,
+  author_id bigint(20),
+  book_id   bigint(20),
+  rental_date date,
+  primary key (id_borrow),
   foreign key (author_id) references author (id_author),
   foreign key (book_id) references books (id_book)
 );

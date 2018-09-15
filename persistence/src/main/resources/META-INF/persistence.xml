@@ -5,13 +5,21 @@
              version="2.1">
     <persistence-unit name="library"
                       transaction-type="RESOURCE_LOCAL">
+
+        <class>models.Author</class>
+        <class>models.Book</class>
+        <class>models.Borrow</class>
+        <class>models.Borrower</class>
+        <class>models.BorrowerDetails</class>
+
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/library?autoReconnect=true&useSSL=false" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/library?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
             <property name="javax.persistence.jdbc.user" value="user" />
             <property name="javax.persistence.jdbc.password" value="UserUser!1" />
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <!--<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />-->
             <property name="javax.persistence.schema-generation.database.action"
-                      value="drop-and-create"/>
+                      value="create"/>
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />-->
             <property name = "hibernate.show_sql" value = "true" />
         </properties>
     </persistence-unit>
