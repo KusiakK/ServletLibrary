@@ -10,6 +10,7 @@ public class BorrowerDetails {
 
     @Id
     @Column(name = "id_borrower_details")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger borrowerDetailsID;
 
     @Column(name = "address")

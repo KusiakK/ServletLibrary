@@ -1,0 +1,16 @@
+<c:if test="${not empty requestScope.errorHead}">
+    <div class="alert alert-danger">
+        <strong>${requestScope.errorHead}</strong>
+        <c:if test="${not empty requestScope.error}">
+            ${requestScope.error}
+        </c:if>
+    </div>
+</c:if>
+<c:if test="${not empty requestScope.successHead}">
+    <div class="alert alert-danger">
+        <strong>${requestScope.successHead}</strong>
+        <c:if test="${not empty requestScope.success}">
+            ${requestScope.success}
+        </c:if>
+    </div>
+</c:if>

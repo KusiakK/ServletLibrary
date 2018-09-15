@@ -13,6 +13,7 @@ public class Book {
 
     @Id
     @Column(name = "id_books")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger bookID;
 
     @Column(name = "borrow")
@@ -21,7 +22,7 @@ public class Book {
     @Column(name = "category")
     private String category;
 
-    @Column(name = "isbn")
+    @Column(name = "isbn", nullable = false)
     private Long isbn;
 
     @Column(name = "pages")
@@ -34,7 +35,7 @@ public class Book {
     @Column(name = "summary")
     private String summary;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "author")
@@ -43,7 +44,7 @@ public class Book {
     private Author author;
 
     @Column(name = "borrows")
-    @OneToMany(mappedBy = "booksID")
+    @OneToMany(mappedBy = "books")
     private Set<Borrow> borrows;
 
     @Column(name = "borrowers")

@@ -7,7 +7,7 @@ import java.math.BigInteger;
 
 public class AuthorRepository extends GenericRepository<Author, BigInteger> {
 
-    protected AuthorRepository(EntityManager entityManager) {
+    public AuthorRepository(EntityManager entityManager) {
         super(entityManager);
     }
 }
