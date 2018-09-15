@@ -11,15 +11,16 @@ public class Borrower {
 
     @Id
     @Column(name = "id_borrower")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger borrowerID;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "borrowerID")
+    @OneToMany(mappedBy = "borrowers")
     private Set<Borrow> borrows;
 
     @Column(name = "borrower_details")

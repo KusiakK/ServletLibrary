@@ -4,17 +4,17 @@
 <html>
 <head>
     <title>Browse</title>
-    <jsp:include page="/src/main/webapp/WEB-INF/headlinks.jspf"/>
+    <jsp:include page="WEB-INF/headlinks.jspf"/>
 </head>
 <body class="bg-light h-100">
-<jsp:include page="/src/main/webapp/WEB-INF/header.jspf"/>
+<jsp:include page="WEB-INF/header.jspf"/>
 <div class="container d-flex h-100 m-auto">
     <div class="my-auto w-100">
         <div class="my-6 w-100">
             <p class="lead font-weight-light">Our Library</p>
             <hr class="my-4 bg-info opacity">
             <p class="font-weight-light">Here you can browse our books and borrow them.</p>
-            <form class="w-100" action="browse.jsp" method="POST">
+            <form class="w-100" action="browse" method="POST">
                 <div class="h-100 w-100 mb-3">
                     <div class="table-responsive-xl">
                         <table class="table">
@@ -89,7 +89,7 @@
         </div>
     </div>
 </div>
-<jsp:include page="/src/main/webapp/WEB-INF/footer.jspf"/>
-<jsp:include page="/src/main/webapp/WEB-INF/srcjs.jspf"/>
+<jsp:include page="WEB-INF/footer.jspf"/>
+<jsp:include page="WEB-INF/srcjs.jspf"/>
 </body>
 </html>

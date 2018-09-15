@@ -1,0 +1,47 @@
+<form action="addSevrlet" method="POST">
+    <div class="row justify-content-around">
+        <div class="form-group col-md-6">
+            <label for="bookTitle">Title</label>
+            <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title" name="bookTitle">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="bookCategory">Category</label>
+            <input type="text" class="form-control" id="bookCategory" placeholder="Enter category"
+                   name="bookCategory">
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="form-group col-md-6 ">
+            <label for="isbn">ISBN</label>
+            <input type="number" class="form-control" id="isbn" placeholder="Enter ISBN number" name="isbn">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="bookReleaseDate">Release date</label>
+            <input type="date" class="form-control" id="bookReleaseDate" placeholder="Enter release date"
+                   name="bookReleaseDate">
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="form-group col-md-6">
+            <label for="author">Author</label>
+            <select id="author" class="custom-select">
+                <option name="author" selected>Choose author</option>
+                <option name="author" value="1">One</option>
+                <option name="author" value="2">Two</option>
+                <option name="author" value="3">Three</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="bookPages">Pages</label>
+            <input type="number" class="form-control" id="bookPages" placeholder="Enter number of pages"
+                   name="bookPages">
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="form-group col-md-12">
+            <label for="bookSummary">Summary</label>
+            <textarea class="form-control" id="bookSummary" placeholder="Enter summary" name="bookSummary"></textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-lg btn-info d-block">Submit</button>
+</form>

@@ -1,5 +1,7 @@
 package models;
 
+import com.sun.istack.internal.Nullable;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
@@ -14,10 +16,10 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger authorID;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable= false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "birth_place")
