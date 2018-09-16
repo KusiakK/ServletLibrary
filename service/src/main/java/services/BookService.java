@@ -6,6 +6,7 @@ import repositories.BookRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class BookService {
 
@@ -27,6 +28,18 @@ public class BookService {
     }
 
     public Boolean edit(Book book) {
+        return null != bookRepository.update(book);
+    }
 
+    public void delete(Book book) {
+        bookRepository.delete(book);
+    }
+
+    public Book get(int id) {
+        return bookRepository.read(id);
+    }
+
+    public List<Book> getAll() {
+        return bookRepository.findAll();
     }
 }

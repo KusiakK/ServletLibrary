@@ -1,5 +1,7 @@
 package servlets;
 
+import services.BookService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +39,7 @@ public class BrowseServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("books", BookService.getInstance().getAll());
         request.getRequestDispatcher("browse.jsp").forward(request, response);
     }
 }
