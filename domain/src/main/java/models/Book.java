@@ -49,7 +49,8 @@ public class Book {
     @JoinColumn
     private List<Borrower> borrowers;
 
-    public Book() {
+    public Book(Long isbn) {
+        this.isbn = isbn;
     }
 
     public Integer getBookID() {

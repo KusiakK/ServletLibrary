@@ -13,7 +13,7 @@
     <div class="row justify-content-around">
         <div class="form-group col-md-6 ">
             <label for="isbn">ISBN</label>
-            <input type="number" class="form-control" id="isbn" placeholder="Enter ISBN number" name="isbn">
+            <input type="number" class="form-control" id="isbn" placeholder="Enter ISBN number" name="isbn" required>
         </div>
         <div class="form-group col-md-6">
             <label for="bookReleaseDate">Release date</label>

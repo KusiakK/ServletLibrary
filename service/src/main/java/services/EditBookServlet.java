@@ -1,8 +1,7 @@
-package servlets;
+package services;
 
 import models.Author;
 import models.Book;
-import services.BookService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 
-@WebServlet("/add-book")
-public class BookAddServlet extends HttpServlet {
-
+@WebServlet("/edit-book")
+public class EditBookServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String isbnAsString = req.getParameter("isbn");
@@ -28,7 +26,7 @@ public class BookAddServlet extends HttpServlet {
         Long isbn = null;
 
         try {
-           isbn = Long.parseLong(isbnAsString);
+            isbn = Long.parseLong(isbnAsString);
         } catch (NumberFormatException e) {
             req.setAttribute("errorHead", "ISBN not a number! ");
             req.setAttribute("error", "ISBN has to be a number type");
@@ -48,7 +46,7 @@ public class BookAddServlet extends HttpServlet {
         book.setSummary(req.getParameter("bookSummary"));
 
 
-        if (BookService.getInstance().add(book)) {
+        if (BookService.getInstance().edit(book)) {
             req.setAttribute("successHead", "Success! ");
             req.setAttribute("success", "Book added to library!");
             req.getRequestDispatcher("browse.jsp").forward(req, resp);
@@ -63,4 +61,5 @@ public class BookAddServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("book-add.jsp").forward(req, resp);
     }
+
 }
