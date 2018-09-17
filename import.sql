@@ -1,0 +1,1 @@
+insert into authors (birth_place, first_name, last_name) VALUES ('Wachock', 'Stefan', 'Kraweznik');
