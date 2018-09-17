@@ -12,6 +12,7 @@
     <div class="my-auto w-100">
         <div class="my-6 w-100">
             <p class="lead font-weight-light">Our Library</p>
+            <jsp:include page="WEB-INF/notifications.jspf"/>
             <hr class="my-4 bg-info opacity">
             <p class="font-weight-light">Here you can browse our books and borrow them.</p>
             <form class="w-100" action="browse-option" method="GET">
