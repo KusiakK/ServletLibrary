@@ -14,7 +14,7 @@
             <p class="lead font-weight-light">Delete book</p>
             <hr class="my-4 bg-info opacity">
             <p class="font-weight-light">Are you sure you want to delete book?</p>
-            <form class="w-100" action="browse-option" method="post">
+            <form class="w-100" action="deleteBook" method="post">
                 <div class="h-100 w-100 mb-3">
                 </div>
                 <div class="btn-group" role="group">

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-@WebServlet("/add-book")
+@WebServlet("/addBook")
 public class BookAddServlet extends HttpServlet {
 
     @Override
