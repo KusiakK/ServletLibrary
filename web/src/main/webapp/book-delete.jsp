@@ -17,6 +17,7 @@
             <form class="w-100" action="deleteBook" method="post">
                 <div class="h-100 w-100 mb-3">
                 </div>
+                <input type="hidden" name="book-id" value="${requestScope['book-id']}">
                 <div class="btn-group" role="group">
                     <button type="submit" class="btn btn-info" name="deleteConfirmation" value="delete-confirm">Delete</button>
                     <button type="submit" class="btn btn-info" name="deleteConfirmation" value="delete-cancel">Cancel</button>
