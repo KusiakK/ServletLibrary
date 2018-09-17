@@ -1,5 +1,6 @@
 package servlets;
 
+import services.AuthorService;
 import services.BookService;
 
 import javax.servlet.ServletException;
@@ -12,12 +13,13 @@ import java.io.IOException;
 @WebServlet("/browse")
 public class BrowseServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("authors", AuthorService.getInstance().getAll());
         request.setAttribute("books", BookService.getInstance().getAll());
         request.getRequestDispatcher("browse.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("books", BookService.getInstance().getAll());
+        request.setAttribute("authors", AuthorService.getInstance().getAll());
         request.setAttribute("books", BookService.getInstance().getAll());
         request.getRequestDispatcher("browse.jsp").forward(request, response);
     }

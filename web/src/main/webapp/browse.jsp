@@ -31,50 +31,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><input type="radio" name="bookChoice"
-                                           aria-label="Checkbox for following text input"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><input type="radio" name="bookChoice"
-                                           aria-label="Checkbox for following text input"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><input type="radio" name="bookChoice"
-                                           aria-label="Checkbox for following text input"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><input type="radio" name="bookChoice"
-                                           aria-label="Checkbox for following text input"></td>
-                            </tr>
+                            <c:forEach var="book" items="${requestScope.books}">
+                                <tr>
+                                    <td>${book.title}</td>
+                                    <td>${book.author.firstName}</td>
+                                    <td>${book.author.lastName}</td>
+                                    <td>${book.isbn}</td>
+                                    <td>${book.category}</td>
+                                    <td>${book.releaseDate}</td>
+                                    <td></td>
+                                    <td><input type="radio" name="book-id" value="${book.bookID}"/></td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>

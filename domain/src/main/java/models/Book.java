@@ -31,7 +31,7 @@ public class Book {
     @Column(name = "release_date")
     private LocalDate releaseDate;
 
-    @Column(name = "summary")
+    @Column(name = "summary", length = 360)
     private String summary;
 
     @Column(name = "title", nullable = false)
@@ -45,9 +45,8 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private Set<Borrow> borrows;
 
-    @ManyToMany
-    @JoinColumn
-    private List<Borrower> borrowers;
+    public Book() {
+    }
 
     public Book(Long isbn) {
         this.isbn = isbn;
@@ -125,14 +124,6 @@ public class Book {
         this.author = author;
     }
 
-    public List<Borrower> getBorrowers() {
-        return borrowers;
-    }
-
-    public void setBorrowers(List<Borrower> borrowers) {
-        this.borrowers = borrowers;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -146,13 +137,12 @@ public class Book {
                 Objects.equals(releaseDate, book.releaseDate) &&
                 Objects.equals(summary, book.summary) &&
                 Objects.equals(title, book.title) &&
-                Objects.equals(author, book.author) &&
-                Objects.equals(borrowers, book.borrowers);
+                Objects.equals(author, book.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookID, isBorrowed, category, isbn, pages, releaseDate, summary, title, author, borrowers);
+        return Objects.hash(bookID, isBorrowed, category, isbn, pages, releaseDate, summary, title, author);
     }
 
     @Override
@@ -167,7 +157,6 @@ public class Book {
                 ", summary='" + summary + '\'' +
                 ", title='" + title + '\'' +
                 ", author=" + author +
-                ", borrowers=" + borrowers +
                 '}';
     }
 }

@@ -20,7 +20,7 @@ public class AuthorService {
         authorRepository = new AuthorRepository(entityManager);
     }
 
-    public AuthorService getInstance() {
+    public static AuthorService getInstance() {
         if (null == instance) {
             instance = new AuthorService();
         }
@@ -43,7 +43,7 @@ public class AuthorService {
         return authorRepository.read(id);
     }
 
-    public List<Author> findAll() {
+    public List<Author> getAll() {
         return authorRepository.findAll();
     }
 }

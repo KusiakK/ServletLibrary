@@ -2,6 +2,7 @@ package servlets;
 
 import models.Author;
 import models.Book;
+import services.AuthorService;
 import services.BookService;
 
 import javax.servlet.ServletException;
@@ -70,7 +71,10 @@ public class EditBookServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+        req.setAttribute("authors", AuthorService.getInstance().getAll());
+        Book book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
+        req.setAttribute("book", book);
+        req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
     }
 
 }
