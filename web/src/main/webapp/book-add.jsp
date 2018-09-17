@@ -15,7 +15,7 @@
             <jsp:include page="WEB-INF/notifications.jspf"/>
             <hr class="my-4 bg-info opacity">
             <form action="add-book" method="POST">
-                <jsp:include page="WEB-INF/book-form-body.jspf"/>
+                <jsp:include page="WEB-INF/book-form-body.jsp"/>
             </form>
         </div>
     </div>

@@ -9,10 +9,10 @@ import java.io.IOException;
 
 @WebServlet("/browse-option")
 public class BrowseOptionServlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //        request.setAttribute("books", BookService.getInstance().getAll());
-        request.getRequestDispatcher("browse.jsp").forward(request, response);
+        request.getRequestDispatcher("browse").forward(request, response);
     }
 
     @Override

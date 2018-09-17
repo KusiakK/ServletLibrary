@@ -2,6 +2,7 @@ package servlets;
 
 import models.Author;
 import models.Book;
+import services.AuthorService;
 import services.BookService;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,19 @@ public class BookAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String isbnAsString = req.getParameter("isbn");
+        Author author = null;
+        try {
+            author = AuthorService.getInstance().get(Integer.parseInt(req.getParameter("author-id")));
+        } catch (NumberFormatException e) {
+            req.setAttribute("errorHead", "Cannot get Author! ");
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+        }
+
+        if (null == author) {
+            req.setAttribute("errorHead", "Wrong Author! ");
+            req.setAttribute("error", "Please pick one from the list");
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+        }
 
         if (null == isbnAsString) {
             req.setAttribute("errorHead", "Missing ISBN! ");
@@ -45,7 +59,7 @@ public class BookAddServlet extends HttpServlet {
         if (!"".equals(req.getParameter("bookReleaseDate"))) {
             try {
                 releaseDate = LocalDate.parse(req.getParameter("bookReleaseDate"));
-            } catch (DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 req.setAttribute("errorHead", "Wrong date format! ");
                 req.getRequestDispatcher("book-add.jsp").forward(req, resp);
             }
@@ -55,13 +69,13 @@ public class BookAddServlet extends HttpServlet {
         book.setReleaseDate(releaseDate);
         book.setTitle(req.getParameter("bookTitle"));
         book.setCategory(req.getParameter("bookCategory"));
-        book.setAuthor(new Author(req.getParameter("author")));
+        book.setAuthor(author);
         book.setSummary(req.getParameter("bookSummary"));
 
         if (BookService.getInstance().add(book)) {
             req.setAttribute("successHead", "Success! ");
             req.setAttribute("success", "Book added to library!");
-            req.getRequestDispatcher("browse.jsp").forward(req, resp);
+            req.getRequestDispatcher("browse").forward(req, resp);
         } else {
             req.setAttribute("errorHead", "Server error! ");
             req.setAttribute("error", "Could not save book to database");
@@ -71,6 +85,7 @@ public class BookAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("authors", AuthorService.getInstance().getAll());
         req.getRequestDispatcher("book-add.jsp").forward(req, resp);
     }
 }

@@ -14,7 +14,7 @@ public class BookRepository extends GenericRepository<Book, Integer> {
 
     public List<Book> findAll() {
         try {
-            return em.createQuery("SELECT c FROM books c", Book.class).getResultList();
+            return em.createQuery("SELECT c FROM Book c", Book.class).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
