@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 @WebServlet("/add-book")
 public class BookAddServlet extends HttpServlet {
@@ -26,9 +27,10 @@ public class BookAddServlet extends HttpServlet {
         }
 
         Long isbn = null;
+        LocalDate releaseDate = null;
 
         try {
-           isbn = Long.parseLong(isbnAsString);
+            isbn = Long.parseLong(isbnAsString);
         } catch (NumberFormatException e) {
             req.setAttribute("errorHead", "ISBN not a number! ");
             req.setAttribute("error", "ISBN has to be a number type");
@@ -40,13 +42,21 @@ public class BookAddServlet extends HttpServlet {
             req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
 
+        if (!"".equals(req.getParameter("bookReleaseDate"))) {
+            try {
+                releaseDate = LocalDate.parse(req.getParameter("bookReleaseDate"));
+            } catch (DateTimeParseException e){
+                req.setAttribute("errorHead", "Wrong date format! ");
+                req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+            }
+        }
+
         Book book = new Book(isbn);
+        book.setReleaseDate(releaseDate);
         book.setTitle(req.getParameter("bookTitle"));
         book.setCategory(req.getParameter("bookCategory"));
-        book.setReleaseDate(LocalDate.parse(req.getParameter("bookReleaseDate")));
         book.setAuthor(new Author(req.getParameter("author")));
         book.setSummary(req.getParameter("bookSummary"));
-
 
         if (BookService.getInstance().add(book)) {
             req.setAttribute("successHead", "Success! ");

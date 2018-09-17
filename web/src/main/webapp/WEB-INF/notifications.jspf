@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${not empty requestScope.errorHead}">
     <div class="alert alert-danger">
         <strong>${requestScope.errorHead}</strong>
@@ -7,7 +8,7 @@
     </div>
 </c:if>
 <c:if test="${not empty requestScope.successHead}">
-    <div class="alert alert-danger">
+    <div class="alert alert-success">
         <strong>${requestScope.successHead}</strong>
         <c:if test="${not empty requestScope.success}">
             ${requestScope.success}
