@@ -4,7 +4,9 @@
 <html>
 <head>
     <title>Web Library</title>
-    <jsp:include page="WEB-INF/headlinks.jspf"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="webjars/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body class="bg-light h-100">
 <jsp:include page="WEB-INF/header.jspf"/>
@@ -13,7 +15,6 @@
         <div class="my-6 w-100">
             <h1 class="display-4">Welcome to Web Library!</h1>
             <jsp:include page="WEB-INF/notifications.jspf"/>
-            <%--<p class="lead font-weight-light">Welcome to the Web Library!</p>--%>
             <hr class="my-4 bg-info opacity">
             <p class="font-weight-light">Here you can browse our books and borrow them.</p>
             <a class="btn btn-info btn-lg" href="browse" role="button">Browse</a>

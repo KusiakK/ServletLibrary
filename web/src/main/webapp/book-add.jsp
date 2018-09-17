@@ -14,8 +14,8 @@
             <p class="lead font-weight-light">Add book</p>
             <jsp:include page="WEB-INF/notifications.jspf"/>
             <hr class="my-4 bg-info opacity">
-            <form action="add-book" method="POST">
-                <jsp:include page="WEB-INF/book-form-body.jsp"/>
+            <form action="addBook" method="POST">
+                <jsp:include page="WEB-INF/book-form-body.jspf"/>
             </form>
         </div>
     </div>

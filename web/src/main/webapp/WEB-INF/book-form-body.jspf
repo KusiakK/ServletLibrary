@@ -45,4 +45,5 @@
         <textarea class="form-control" id="bookSummary" placeholder="Enter summary" name="bookSummary">${requestScope.book.summary}</textarea>
     </div>
 </div>
+<input type="hidden" name="book-id" value="${requestScope.book.bookID}">
 <button type="submit" class="btn btn-lg btn-info d-block">Submit</button>

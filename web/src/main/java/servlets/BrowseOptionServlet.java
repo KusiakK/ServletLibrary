@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/browse-option")
+@WebServlet("/bookOption")
 public class BrowseOptionServlet extends HttpServlet {
 
     @Override
@@ -19,19 +19,19 @@ public class BrowseOptionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         switch (request.getParameter("actionType")) {
             case "add": {
-                request.getRequestDispatcher("add-book").forward(request, response);
+                request.getRequestDispatcher("addBook").forward(request, response);
                 break;
             }
             case "edit": {
-                request.getRequestDispatcher("edit-book").forward(request, response);
+                request.getRequestDispatcher("editBook").forward(request, response);
                 break;
             }
             case "delete": {
-                request.getRequestDispatcher("delete-book").forward(request, response);
+                request.getRequestDispatcher("deleteBook").forward(request, response);
                 break;
             }
             case "show": {
-                request.getRequestDispatcher("show-book").forward(request, response);
+                request.getRequestDispatcher("showBook").forward(request, response);
                 break;
             }
             default: {
