@@ -11,33 +11,34 @@ import java.io.IOException;
 public class BrowseOptionServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("browse").forward(request, response);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("browse").forward(req, resp);
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        switch (request.getParameter("actionType")) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("book-id", req.getParameter("book-id"));
+        switch (req.getParameter("actionType")) {
             case "add": {
-                request.getRequestDispatcher("addBook").forward(request, response);
+                req.getRequestDispatcher("addBook").forward(req, resp);
                 break;
             }
             case "edit": {
-                request.getRequestDispatcher("editBook").forward(request, response);
+                req.getRequestDispatcher("editBook").forward(req, resp);
                 break;
             }
             case "delete": {
-                request.getRequestDispatcher("deleteBook").forward(request, response);
+                req.getRequestDispatcher("deleteBook").forward(req, resp);
                 break;
             }
             case "show": {
-                request.getRequestDispatcher("showBook").forward(request, response);
+                req.getRequestDispatcher("showBook").forward(req, resp);
                 break;
             }
             default: {
-                request.setAttribute("errorHead", "Error! ");
-                request.setAttribute("error", "Unknown action type.");
-                request.getRequestDispatcher("browse.jsp").forward(request, response);
+                req.setAttribute("errorHead", "Error! ");
+                req.setAttribute("error", "Unknown action type.");
+                req.getRequestDispatcher("browse.jsp").forward(req, resp);
                 break;
             }
         }

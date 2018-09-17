@@ -20,12 +20,25 @@ public class BookDeleteServlet extends HttpServlet {
             resp.sendRedirect("browse");
         }
 
-        int bookID = Integer.parseInt(req.getParameter("book-id"));
+        Integer bookID = null;
+
+        try {
+            bookID = Integer.parseInt(req.getParameter("book-id"));
+        } catch (NumberFormatException e) {
+        }
+
+        if (null == bookID) {
+            req.setAttribute("errorHead", "Error! ");
+            req.setAttribute("error", "Book does not exist!");
+            req.getRequestDispatcher("browse").forward(req, resp);
+        }
+
         Book book = BookService.getInstance().get(bookID);
         BookService.getInstance().delete(book);
         req.setAttribute("successHead", "Success! ");
         req.setAttribute("success", "Book deleted from the library.");
         req.getRequestDispatcher("browse").forward(req, resp);
+
     }
 
     @Override
