@@ -14,7 +14,7 @@
             <p class="lead font-weight-light">Our Library</p>
             <hr class="my-4 bg-info opacity">
             <p class="font-weight-light">Here you can browse our books and borrow them.</p>
-            <form class="w-100" action="browse" method="POST">
+            <form class="w-100" action="browse-option" method="GET">
                 <div class="h-100 w-100 mb-3">
                     <div class="table-responsive-xl">
                         <table class="table">
