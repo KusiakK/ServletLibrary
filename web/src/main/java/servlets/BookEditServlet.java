@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 @WebServlet("/edit-book")
-public class EditBookServlet extends HttpServlet {
+public class BookEditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String isbnAsString = req.getParameter("isbn");
