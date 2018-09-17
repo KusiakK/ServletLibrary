@@ -2,6 +2,7 @@ package services;
 
 import models.Book;
 import repositories.BookRepository;
+import utility.Static;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,7 +15,7 @@ public class BookService {
     private BookRepository bookRepository;
 
     private BookService() {
-        EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory("library");
+        EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory(Static.PERSISTENCE_UNIT);
         EntityManager entityManager = entityFactory.createEntityManager();
         bookRepository = new BookRepository(entityManager);
     }
