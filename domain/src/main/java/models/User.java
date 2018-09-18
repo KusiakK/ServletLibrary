@@ -9,7 +9,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @Column(name = "user_name")
+    @Column(name = "user_id")
     private String userName;
 
     @Column(name = "first_name", nullable = false)
