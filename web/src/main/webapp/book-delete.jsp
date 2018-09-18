@@ -18,8 +18,8 @@
                 </div>
                 <input type="hidden" name="book-id" value="${requestScope['book-id']}">
                 <div class="btn-group" role="group">
-                    <button type="submit" class="btn btn-info" name="deleteConfirmation" value="delete-confirm">Delete</button>
-                    <button type="submit" class="btn btn-info" name="deleteConfirmation" value="delete-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-info" name="deleteConfirmation" value="confirm">Delete</button>
+                    <button type="submit" class="btn btn-info" name="deleteConfirmation" value="cancel">Cancel</button>
                 </div>
             </form>
         </div>

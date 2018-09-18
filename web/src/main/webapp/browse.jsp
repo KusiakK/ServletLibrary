@@ -40,7 +40,8 @@
                                     <td>${book.category}</td>
                                     <td>${book.releaseDate}</td>
                                     <td></td>
-                                    <td><input type="radio" name="book-id" value="${book.bookID}"/></td>
+                                    <%--TODO make readio buttons not required--%>
+                                    <td><input type="radio" required name="book-id" value="${book.bookID}"/></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
