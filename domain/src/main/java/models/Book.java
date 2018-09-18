@@ -16,8 +16,8 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookID;
 
-    @Column(name = "borrow")
-    private Boolean isBorrowed;
+    @Column(name = "is_borrowed", nullable = false)
+    private Boolean isBorrowed = false;
 
     @Column(name = "category")
     private String category;
