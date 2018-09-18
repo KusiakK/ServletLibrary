@@ -1,9 +1,7 @@
 package models;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,12 +14,12 @@ public class Borrow {
     private Integer borrowID;
 
     @ManyToOne
-    @JoinColumn
-    private Book book;
+    @JoinColumn(name = "book_id")
+    private Book bookID;
 
     @ManyToOne
-    @JoinColumn
-    private Borrow borrower;
+    @JoinColumn(name = "user_id")
+    private Borrow userID;
 
     @Column(name = "rental_date", nullable = false)
     private LocalDate rentalDate;
@@ -37,20 +35,20 @@ public class Borrow {
         this.borrowID = borrowID;
     }
 
-    public Book getBook() {
-        return book;
+    public Book getBookID() {
+        return bookID;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookID(Book book) {
+        this.bookID = book;
     }
 
-    public Borrow getBorrower() {
-        return borrower;
+    public Borrow getUserID() {
+        return userID;
     }
 
-    public void setBorrower(Borrow borrower) {
-        this.borrower = borrower;
+    public void setUserID(Borrow borrower) {
+        this.userID = borrower;
     }
 
     public LocalDate getRentalDate() {
@@ -67,22 +65,22 @@ public class Borrow {
         if (o == null || getClass() != o.getClass()) return false;
         Borrow borrow = (Borrow) o;
         return Objects.equals(borrowID, borrow.borrowID) &&
-                Objects.equals(book, borrow.book) &&
-                Objects.equals(borrower, borrow.borrower) &&
+                Objects.equals(bookID, borrow.bookID) &&
+                Objects.equals(userID, borrow.userID) &&
                 Objects.equals(rentalDate, borrow.rentalDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(borrowID, book, borrower, rentalDate);
+        return Objects.hash(borrowID, bookID, userID, rentalDate);
     }
 
     @Override
     public String toString() {
         return "Borrow{" +
                 "borrowID=" + borrowID +
-                ", book=" + book +
-                ", borrower=" + borrower +
+                ", book=" + bookID +
+                ", borrower=" + userID +
                 ", rentalDate=" + rentalDate +
                 '}';
     }

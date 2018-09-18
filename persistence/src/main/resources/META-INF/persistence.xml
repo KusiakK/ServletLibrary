@@ -11,8 +11,8 @@
         <class>models.Author</class>
         <class>models.Book</class>
         <class>models.Borrow</class>
-        <class>models.Borrower</class>
-        <class>models.BorrowerDetails</class>
+        <class>models.User</class>
+        <class>models.UserDetails</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url"
@@ -22,7 +22,7 @@
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.schema-generation.database.action"
                       value="create"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>

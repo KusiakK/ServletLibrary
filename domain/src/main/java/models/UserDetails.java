@@ -1,17 +1,16 @@
 package models;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Objects;
 
 @Entity
-@Table(name = "borrower_details")
-public class BorrowerDetails {
+@Table(name = "user_details")
+public class UserDetails {
 
     @Id
-    @Column(name = "id_borrower_details")
+    @Column(name = "id_user_details")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer borrowerDetailsID;
+    private Integer userDetailsID;
 
     @Column(name = "address")
     private String address;
@@ -22,19 +21,19 @@ public class BorrowerDetails {
     @Column(name = "phone")
     private String phone;
 
-    @OneToOne(mappedBy = "borrowerDetails")
+    @OneToOne(mappedBy = "userDetails")
     @JoinColumn
-    private Borrower borrower;
+    private User user;
 
-    public BorrowerDetails() {
+    public UserDetails() {
     }
 
-    public Integer getBorrowerDetailsID() {
-        return borrowerDetailsID;
+    public Integer getUserDetailsID() {
+        return userDetailsID;
     }
 
-    public void setBorrowerDetailsID(Integer borrowerDetailsID) {
-        this.borrowerDetailsID = borrowerDetailsID;
+    public void setUserDetailsID(Integer borrowerDetailsID) {
+        this.userDetailsID = borrowerDetailsID;
     }
 
     public String getAddress() {
@@ -61,39 +60,39 @@ public class BorrowerDetails {
         this.phone = phone;
     }
 
-    public Borrower getBorrower() {
-        return borrower;
+    public User getUser() {
+        return user;
     }
 
-    public void setBorrower(Borrower borrower) {
-        this.borrower = borrower;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BorrowerDetails that = (BorrowerDetails) o;
-        return Objects.equals(borrowerDetailsID, that.borrowerDetailsID) &&
+        UserDetails that = (UserDetails) o;
+        return Objects.equals(userDetailsID, that.userDetailsID) &&
                 Objects.equals(address, that.address) &&
                 Objects.equals(email, that.email) &&
                 Objects.equals(phone, that.phone) &&
-                Objects.equals(borrower, that.borrower);
+                Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(borrowerDetailsID, address, email, phone, borrower);
+        return Objects.hash(userDetailsID, address, email, phone, user);
     }
 
     @Override
     public String toString() {
-        return "BorrowerDetails{" +
-                "borrowerDetailsID=" + borrowerDetailsID +
+        return "UserDetails{" +
+                "borrowerDetailsID=" + userDetailsID +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", borrower=" + borrower +
+                ", user=" + user +
                 '}';
     }
 }

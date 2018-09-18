@@ -9,13 +9,13 @@ import java.io.IOException;
 public class AuthenticationFilter implements Filter {
     public void destroy() {
     }
+
     //TODO fix filter
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpReq = (HttpServletRequest) req;
-        if (null != req.getParameter("actionType") && "showBook".equals(req.getParameter("actionType"))){
+        if (null != req.getParameter("actionType") && "showBook".equals(req.getParameter("actionType"))) {
             chain.doFilter(req, resp);
-        }
-        if (null != httpReq.getSession(false) && null != httpReq.getSession(false).getAttribute("userName")) {
+        } else if (null != httpReq.getSession(false) && null != httpReq.getSession(false).getAttribute("userName")) {
             chain.doFilter(req, resp);
         } else {
             req.setAttribute("errorHead", "You have to log in first! ");

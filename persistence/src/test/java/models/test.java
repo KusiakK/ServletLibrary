@@ -13,9 +13,8 @@ public class test {
 
     @Test
     public void test() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(Static.PERSISTENCE_UNIT);
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        AuthorRepository authorRepository = new AuthorRepository(entityManager);
-        authorRepository.create(new Author("Stefan"));
+//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(Static.PERSISTENCE_UNIT);
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        AuthorRepository authorRepository = new AuthorRepository(entityManager);
     }
 }
