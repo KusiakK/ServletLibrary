@@ -5,13 +5,16 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter("/adminPanel.jsp")
+@WebFilter("/browseOption")
 public class AuthenticationFilter implements Filter {
     public void destroy() {
     }
-
+    //TODO fix filter
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpReq = (HttpServletRequest) req;
+        if (null != req.getParameter("actionType") && "showBook".equals(req.getParameter("actionType"))){
+            chain.doFilter(req, resp);
+        }
         if (null != httpReq.getSession(false) && null != httpReq.getSession(false).getAttribute("userName")) {
             chain.doFilter(req, resp);
         } else {

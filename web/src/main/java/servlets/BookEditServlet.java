@@ -85,8 +85,14 @@ public class BookEditServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Book book = null;
+        try {
+            book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
+        } catch (NullPointerException e) {
+            req.setAttribute("errorHead", "Book ID missing! ");
+            req.getRequestDispatcher("browse").forward(req, resp);
+        }
         req.setAttribute("authors", AuthorService.getInstance().getAll());
-        Book book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
         req.setAttribute("book", book);
         req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
     }

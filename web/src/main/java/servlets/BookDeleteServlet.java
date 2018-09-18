@@ -16,10 +16,10 @@ public class BookDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        if (!"delete-confirm".equals(req.getParameter("deleteConfirmation"))) {
+        if (!"confirm".equals(req.getParameter("deleteConfirmation"))) {
             resp.sendRedirect("browse");
         }
-
+        //TODO fix delete cancel button
         Integer bookID = null;
 
         try {
