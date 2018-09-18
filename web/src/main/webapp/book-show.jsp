@@ -13,19 +13,32 @@
             <p class="lead font-weight-light"></p>
             <jsp:include page="WEB-INF/notifications.jspf"/>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <ul class="list-group">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Morbi leo risus</li>
-                        <li class="list-group-item">Porta ac consectetur ac</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item">${requestScope.book.author.firstName} ${requestScope.book.author.lastName}</li>
+                        <li class="list-group-item">${requestScope.book.category}</li>
+                        <li class="list-group-item">${requestScope.book.isbn}</li>
+                        <li class="list-group-item">${requestScope.book.pages}</li>
+                        <li class="list-group-item">${requestScope.book.releaseDate}</li>
                     </ul>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
+                    <h1 class="display-4">${requestScope.book.title}</h1>
                     <hr class="my-4 bg-info opacity">
-
+                    <span class="page-item">${requestScope.book.summary}</span>
                 </div>
+            </div>
+            <div class="row">
+                <a class="btn btn-info btn-lg" href="browse" role="button">< Back</a>
+                <c:choose>
+
+                    <c:when test="${requestScope.book.isBorrowed}">
+                        <a class="btn btn-info btn-lg" href="browse" role="button">Borrow</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="btn btn-secondary btn-lg" href="browse" role="button">Borrow</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 package servlets;
 
+import models.Book;
 import services.BookService;
 
 import javax.servlet.ServletException;
@@ -20,12 +21,15 @@ public class BookShowServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-            BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
-        } catch (NumberFormatException e){
+            req.setAttribute("book", BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id"))));
+        } catch (NumberFormatException e) {
             req.setAttribute("errorHead", "You must pick a book to show! ");
             req.getRequestDispatcher("browse").forward(req, resp);
+        } catch (NullPointerException e) {
+            req.setAttribute("errorHead", "Book not found! ");
+            req.getRequestDispatcher("browse").forward(req, resp);
         }
-        req.getRequestDispatcher("book-show.jsp").forward(req, resp);
 
+        req.getRequestDispatcher("book-show.jsp").forward(req, resp);
     }
 }
