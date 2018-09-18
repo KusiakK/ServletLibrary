@@ -41,8 +41,7 @@ public class Book {
     @JoinColumn
     private Author author;
 
-    @Column(name = "borrows")
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "bookID")
     private Set<Borrow> borrows;
 
     public Book() {
