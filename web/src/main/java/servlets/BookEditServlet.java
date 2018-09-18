@@ -19,6 +19,7 @@ public class BookEditServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String isbnAsString = req.getParameter("isbn");
         Author author = null;
         try {
@@ -59,7 +60,7 @@ public class BookEditServlet extends HttpServlet {
         if (!"".equals(req.getParameter("bookReleaseDate"))) {
             try {
                 releaseDate = LocalDate.parse(req.getParameter("bookReleaseDate"));
-            } catch (DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 req.setAttribute("errorHead", "Wrong date format! ");
                 req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
             }
@@ -90,6 +91,9 @@ public class BookEditServlet extends HttpServlet {
             book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
         } catch (NullPointerException e) {
             req.setAttribute("errorHead", "Book ID missing! ");
+            req.getRequestDispatcher("browse").forward(req, resp);
+        } catch (NumberFormatException e) {
+            req.setAttribute("errorHead", "You must pick a book to edit! ");
             req.getRequestDispatcher("browse").forward(req, resp);
         }
         req.setAttribute("authors", AuthorService.getInstance().getAll());

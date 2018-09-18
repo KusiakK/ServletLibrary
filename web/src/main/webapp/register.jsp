@@ -20,17 +20,22 @@
                         <input type="text" class="form-control" id="login" placeholder="Enter your user name"
                                name="login">
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password"
-                               name="password">
-                    </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-md-6 ">
                         <label for="email">Email address</label>
                         <input type="email" class="form-control" id="email"
                                placeholder="Enter your email" name="email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="passwordOne">Password</label>
+                        <input type="password" class="form-control" id="passwordOne" placeholder="Enter your password"
+                               name="passwordOne">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="passwordTwo">Password</label>
+                        <input type="password" class="form-control" id="passwordTwo" placeholder="Confirm your password"
+                               name="passwordTwo">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-lg btn-info d-block">Submit</button>
