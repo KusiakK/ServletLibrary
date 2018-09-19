@@ -1,5 +1,6 @@
 package servlets;
 
+import models.Book;
 import services.BookService;
 import utility.ServletStatics;
 
@@ -19,9 +20,11 @@ public class BookShowServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        Book book = null;
+        String bookIDParam = req.getParameter("book-id");
         try {
-            req.setAttribute("book", BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id"))));
+            int bookID = Integer.parseInt(bookIDParam);
+            book = BookService.getInstance().get(bookID);
         } catch (NumberFormatException e) {
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to show! ");
             req.getRequestDispatcher("browse").forward(req, resp);
@@ -29,7 +32,7 @@ public class BookShowServlet extends HttpServlet {
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Book not found! ");
             req.getRequestDispatcher("browse").forward(req, resp);
         }
-
+        req.setAttribute("book", book);
         req.getRequestDispatcher("book-show.jsp").forward(req, resp);
     }
 }

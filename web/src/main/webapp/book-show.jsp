@@ -31,12 +31,15 @@
             <div class="row">
                 <a class="btn btn-info btn-lg" href="browse" role="button">< Back</a>
                 <c:choose>
-
-                    <c:when test="${requestScope.book.isBorrowed}">
-                        <a class="btn btn-info btn-lg" href="browse" role="button">Borrow</a>
+                    <c:when test="${not empty requestScope.book.borrows}">
+                        <a href="browse">
+                            <button class="btn btn-info btn-lg" role="button">Borrow</button>
+                        </a>
                     </c:when>
                     <c:otherwise>
-                        <a class="btn btn-secondary btn-lg" href="browse" role="button">Borrow</a>
+                        <a href="browse">
+                            <button class="btn btn-secondary btn-lg" role="button" disabled>Borrow</button>
+                        </a>
                     </c:otherwise>
                 </c:choose>
             </div>

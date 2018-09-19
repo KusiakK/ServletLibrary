@@ -19,7 +19,7 @@ public class Borrow {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Borrow userID;
+    private User userID;
 
     @Column(name = "rental_date", nullable = false)
     private LocalDate rentalDate;
@@ -43,11 +43,11 @@ public class Borrow {
         this.bookID = book;
     }
 
-    public Borrow getUserID() {
+    public User getUserID() {
         return userID;
     }
 
-    public void setUserID(Borrow borrower) {
+    public void setUserID(User borrower) {
         this.userID = borrower;
     }
 
