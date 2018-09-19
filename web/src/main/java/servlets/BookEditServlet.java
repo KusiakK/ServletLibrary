@@ -29,14 +29,14 @@ public class BookEditServlet extends HttpServlet {
 
         LocalDate releaseDate = null;
 
-        try {
-            int authorID = Integer.parseInt(req.getParameter("author-id"));
-            author = AuthorService.getInstance().get(authorID);
-        } catch (NumberFormatException e) {
-            errorMessages.add("You must pick an Author from the list");
-        } catch (Exception e) {
-            errorMessages.add("Author not found!");
-        }
+//        try {
+//            int authorID = Integer.parseInt(req.getParameter("author-id"));
+//            author = AuthorService.getInstance().get(authorID);
+//        } catch (NumberFormatException e) {
+//            errorMessages.add("You must pick an Author from the list");
+//        } catch (Exception e) {
+//            errorMessages.add("Author not found!");
+//        }
 
         if (!req.getParameter("bookReleaseDate").isEmpty()) {
             try {
