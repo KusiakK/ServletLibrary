@@ -23,30 +23,30 @@ public class BookEditServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO use ErrorMessenger to handle errors
-
         Author author = null;
+        LocalDate releaseDate = null;
         try {
-            author = AuthorService.getInstance().get(Integer.parseInt(req.getParameter("author-id")));
-        } catch (NumberFormatException e) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Cannot get Author! ");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
-        }
-
-        if (null == author) {
+            String authorIDString = req.getParameter("author-id");
+            int authorID = Integer.parseInt(authorIDString);
+            author = AuthorService.getInstance().get(authorID);
+        } catch (NullPointerException e) {
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "You must pick an Author from the list");
             req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+        } catch (NumberFormatException e) {
+            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "ID is not a number! ");
+            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+        } catch (Exception e) {
+            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Author not found! ");
+            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
         }
 
-        LocalDate releaseDate = null;
-
-        if (!"".equals(req.getParameter("bookReleaseDate"))) {
-            try {
-                releaseDate = LocalDate.parse(req.getParameter("bookReleaseDate"));
-            } catch (DateTimeParseException e) {
-                req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Wrong date format! ");
-                req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
-            }
+        try {
+            String releaseDateString = req.getParameter("bookReleaseDate");
+            releaseDate = LocalDate.parse(releaseDateString);
+        } catch (NullPointerException e) {
+        } catch (DateTimeParseException e) {
+            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Wrong date format! ");
+            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
         }
 
         Book book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
