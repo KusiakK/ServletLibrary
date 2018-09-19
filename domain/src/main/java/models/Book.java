@@ -1,6 +1,10 @@
 package models;
 
+import org.hibernate.validator.constraints.ISBN;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,14 +20,17 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookID;
 
+    @NotNull
     @Column(name = "is_borrowed", nullable = false)
     private Boolean isBorrowed = false;
 
     @Column(name = "category")
     private String category;
 
+    @NotBlank
+    @ISBN
     @Column(name = "isbn", nullable = false)
-    private Long isbn;
+    private String isbn;
 
     @Column(name = "pages")
     private Integer pages;
@@ -34,6 +41,7 @@ public class Book {
     @Column(name = "summary", length = 360)
     private String summary;
 
+    @NotBlank
     @Column(name = "title", nullable = false)
     private String title;
 
@@ -47,7 +55,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long isbn) {
+    public Book(String isbn) {
         this.isbn = isbn;
     }
 
@@ -75,11 +83,11 @@ public class Book {
         this.category = category;
     }
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
