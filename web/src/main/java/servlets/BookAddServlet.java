@@ -27,18 +27,15 @@ public class BookAddServlet extends HttpServlet {
         Author author = null;
         LocalDate releaseDate = null;
         try {
-            String authorIDString = req.getParameter("author-id");
-            int authorID = Integer.parseInt(authorIDString);
+            int authorID = Integer.parseInt(req.getParameter("author-id"));
             author = AuthorService.getInstance().get(authorID);
-        } catch (NullPointerException e) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "You must pick an Author from the list");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
         } catch (NumberFormatException e) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "ID is not a number! ");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "You must pick an Author from the list");
+            req.getRequestDispatcher("addBook").forward(req, resp);
         } catch (Exception e){
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Author not found! ");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Author not found!");
+            req.getRequestDispatcher("addbook").forward(req, resp);
+            //TODO send redirect to servlets GET
         }
 
 
@@ -48,7 +45,7 @@ public class BookAddServlet extends HttpServlet {
         } catch (NullPointerException e) {
         } catch (DateTimeParseException e) {
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Wrong date format! ");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+            req.getRequestDispatcher("addbook").forward(req, resp);
         }
 
         Book book = new Book();
