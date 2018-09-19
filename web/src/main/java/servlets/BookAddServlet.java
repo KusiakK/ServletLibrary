@@ -26,11 +26,10 @@ public class BookAddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Author author = null;
         LocalDate releaseDate = null;
-        List<String> errorMessages = new ArrayList<>();
         try {
             author = AuthorService.getInstance().get(Integer.parseInt(req.getParameter("author-id")));
         } catch (NumberFormatException e) {
-            errorMessages.add("Cannot get Author!");
+            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Cannot get Author!");
             req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
 
@@ -38,7 +37,7 @@ public class BookAddServlet extends HttpServlet {
             try {
                 releaseDate = LocalDate.parse(req.getParameter("bookReleaseDate"));
             } catch (DateTimeParseException e) {
-                errorMessages.add("Wrong date format!");
+                req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Wrong date format!");
                 req.getRequestDispatcher("book-add.jsp").forward(req, resp);
             }
         }
@@ -51,7 +50,7 @@ public class BookAddServlet extends HttpServlet {
         book.setAuthor(author);
         book.setSummary(req.getParameter("bookSummary"));
 
-        errorMessages.addAll(ErrorMessenger.getInstance().getMessages(book));
+        List<String> errorMessages = new ArrayList<>(ErrorMessenger.getInstance().getMessages(book));
 
         if (!errorMessages.isEmpty()) {
             req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
@@ -59,11 +58,10 @@ public class BookAddServlet extends HttpServlet {
         }
 
         if (BookService.getInstance().add(book)) {
-            req.setAttribute("success", "Success! Book added to library!");
+            req.setAttribute("success", "Book added to library!");
             req.getRequestDispatcher("browse").forward(req, resp);
         } else {
-            errorMessages.add("Could not save book to database");
-            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Could not save book to database");
             req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
     }
