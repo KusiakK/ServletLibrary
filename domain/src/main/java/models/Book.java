@@ -5,9 +5,7 @@ import org.hibernate.validator.constraints.ISBN;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,7 +20,7 @@ public class Book {
 
     @NotNull
     @Column(name = "is_borrowed", nullable = false)
-    private Boolean isBorrowed = false;
+    private boolean borrowed = false;
 
     @Column(name = "category")
     private String category;
@@ -64,12 +62,12 @@ public class Book {
         this.bookID = bookID;
     }
 
-    public Boolean getBorrowed() {
-        return isBorrowed;
+    public boolean getBorrowed() {
+        return borrowed;
     }
 
-    public void setBorrowed(Boolean borrowed) {
-        isBorrowed = borrowed;
+    public void setBorrowed(boolean borrowed) {
+        this.borrowed = borrowed;
     }
 
     public String getCategory() {
@@ -128,13 +126,21 @@ public class Book {
         this.author = author;
     }
 
+    public Set<Borrow> getBorrows() {
+        return borrows;
+    }
+
+    public void setBorrows(Set<Borrow> borrows) {
+        this.borrows = borrows;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
         return Objects.equals(bookID, book.bookID) &&
-                Objects.equals(isBorrowed, book.isBorrowed) &&
+                Objects.equals(borrowed, book.borrowed) &&
                 Objects.equals(category, book.category) &&
                 Objects.equals(isbn, book.isbn) &&
                 Objects.equals(pages, book.pages) &&
@@ -146,14 +152,14 @@ public class Book {
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookID, isBorrowed, category, isbn, pages, releaseDate, summary, title, author);
+        return Objects.hash(bookID, borrowed, category, isbn, pages, releaseDate, summary, title, author);
     }
 
     @Override
     public String toString() {
         return "Book{" +
                 "bookID=" + bookID +
-                ", isBorrowed=" + isBorrowed +
+                ", isBorrowed=" + borrowed +
                 ", category='" + category + '\'' +
                 ", isbn=" + isbn +
                 ", pages=" + pages +

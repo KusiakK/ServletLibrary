@@ -29,19 +29,17 @@
                 </div>
             </div>
             <div class="row">
-                <a class="btn btn-info btn-lg" href="browse" role="button">< Back</a>
-                <c:choose>
-                    <c:when test="${not empty requestScope.book.borrows}">
-                        <a href="browse">
-                            <button class="btn btn-info btn-lg" role="button">Borrow</button>
-                        </a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="browse">
-                            <button class="btn btn-secondary btn-lg" role="button" disabled>Borrow</button>
-                        </a>
-                    </c:otherwise>
-                </c:choose>
+                <div class="btn-group" role="group" >
+                    <a class="btn btn-info btn-lg" href="browse" role="button">< Back</a>
+                    <c:choose>
+                        <c:when test="${requestScope.book.borrowed == false}">
+                                <a class="btn btn-info btn-lg" href="browse" role="button">Borrow</a>
+                        </c:when>
+                        <c:otherwise>
+                                <a class="btn btn-warning btn-lg disabled" href="browse" role="button">Borrow</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </div>
     </div>
