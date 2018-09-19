@@ -1,6 +1,5 @@
 package servlets;
 
-import models.Book;
 import services.BookService;
 import utility.ServletStatics;
 
