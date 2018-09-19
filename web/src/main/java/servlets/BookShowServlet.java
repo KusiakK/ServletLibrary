@@ -14,7 +14,7 @@ import java.io.IOException;
 public class BookShowServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        //TODO handle books borrowing
     }
 
     @Override

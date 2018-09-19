@@ -45,6 +45,7 @@ public class Book {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @NotNull
     @ManyToOne
     @JoinColumn
     private Author author;
@@ -53,10 +54,6 @@ public class Book {
     private Set<Borrow> borrows;
 
     public Book() {
-    }
-
-    public Book(String isbn) {
-        this.isbn = isbn;
     }
 
     public Integer getBookID() {

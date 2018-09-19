@@ -15,7 +15,7 @@ public class BookDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        //TODO use ErrorMessenger to handle errors
         if (!"confirm".equals(req.getParameter("deleteConfirmation"))) {
             resp.sendRedirect("browse");
             return;

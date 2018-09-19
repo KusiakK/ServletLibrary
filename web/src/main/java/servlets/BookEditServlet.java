@@ -19,6 +19,7 @@ public class BookEditServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //TODO use ErrorMessenger to handle errors
 
         String isbnAsString = req.getParameter("isbn");
         Author author = null;
