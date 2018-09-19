@@ -24,31 +24,36 @@ public class BookAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<String> errorMessages = new ArrayList<>();
+
+        Book book = (Book) req.getAttribute("book");
+        if (null == book) {
+            book = new Book();
+        }
+
         Author author = null;
+
         LocalDate releaseDate = null;
+
         try {
             int authorID = Integer.parseInt(req.getParameter("author-id"));
             author = AuthorService.getInstance().get(authorID);
         } catch (NumberFormatException e) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "You must pick an Author from the list");
-            req.getRequestDispatcher("addBook").forward(req, resp);
-        } catch (Exception e){
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Author not found!");
-            req.getRequestDispatcher("addbook").forward(req, resp);
-            //TODO send redirect to servlets GET
+            errorMessages.add("You must pick an Author from the list");
+        } catch (Exception e) {
+            errorMessages.add("Author not found!");
         }
 
-
-        try {
-            String releaseDateString = req.getParameter("bookReleaseDate");
-            releaseDate = LocalDate.parse(releaseDateString);
-        } catch (NullPointerException e) {
-        } catch (DateTimeParseException e) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Wrong date format! ");
-            req.getRequestDispatcher("addbook").forward(req, resp);
+        if (!req.getParameter("bookReleaseDate").isEmpty()) {
+            try {
+                String releaseDateString = req.getParameter("bookReleaseDate");
+                releaseDate = LocalDate.parse(releaseDateString);
+            } catch (NullPointerException e) {
+            } catch (DateTimeParseException e) {
+                errorMessages.add("Wrong date format! ");
+            }
         }
 
-        Book book = new Book();
         book.setIsbn(req.getParameter("isbn"));
         book.setReleaseDate(releaseDate);
         book.setTitle(req.getParameter("bookTitle"));
@@ -56,19 +61,24 @@ public class BookAddServlet extends HttpServlet {
         book.setAuthor(author);
         book.setSummary(req.getParameter("bookSummary"));
 
-        List<String> errorMessages = new ArrayList<>(ErrorMessenger.getInstance().getMessages(book));
+        errorMessages.addAll(ErrorMessenger.getInstance().getMessages(book));
 
         if (!errorMessages.isEmpty()) {
+            req.setAttribute("authors", AuthorService.getInstance().getAll());
+            req.setAttribute("book", book);
             req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("addbook").forward(req, resp);
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
 
         if (BookService.getInstance().add(book)) {
             req.setAttribute("success", "Book added to library!");
             req.getRequestDispatcher("browse").forward(req, resp);
         } else {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Could not save book to database");
-            req.getRequestDispatcher("addbook").forward(req, resp);
+            req.setAttribute("authors", AuthorService.getInstance().getAll());
+            req.setAttribute("book", book);
+            errorMessages.add("Could not save book to database");
+            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
     }
 
