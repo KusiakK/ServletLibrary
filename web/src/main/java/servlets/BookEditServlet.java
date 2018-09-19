@@ -26,18 +26,15 @@ public class BookEditServlet extends HttpServlet {
         Author author = null;
         LocalDate releaseDate = null;
         try {
-            String authorIDString = req.getParameter("author-id");
-            int authorID = Integer.parseInt(authorIDString);
+            int authorID = Integer.parseInt(req.getParameter("author-id"));
             author = AuthorService.getInstance().get(authorID);
-        } catch (NullPointerException e) {
+        } catch (NumberFormatException e) {
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "You must pick an Author from the list");
             req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
-        } catch (NumberFormatException e) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "ID is not a number! ");
+        } catch (Exception e){
+            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Author not found!");
             req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
-        } catch (Exception e) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Author not found! ");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+            //TODO send redirect to servlets GET
         }
 
         try {
