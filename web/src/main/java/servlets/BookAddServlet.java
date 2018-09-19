@@ -60,7 +60,7 @@ public class BookAddServlet extends HttpServlet {
 
         if (!errorMessages.isEmpty()) {
             req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+            req.getRequestDispatcher("addbook").forward(req, resp);
         }
 
         if (BookService.getInstance().add(book)) {
@@ -68,7 +68,7 @@ public class BookAddServlet extends HttpServlet {
             req.getRequestDispatcher("browse").forward(req, resp);
         } else {
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Could not save book to database");
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+            req.getRequestDispatcher("addbook").forward(req, resp);
         }
     }
 
