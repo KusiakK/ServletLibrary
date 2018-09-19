@@ -30,10 +30,10 @@ public class BookEditServlet extends HttpServlet {
             author = AuthorService.getInstance().get(authorID);
         } catch (NumberFormatException e) {
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "You must pick an Author from the list");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+            req.getRequestDispatcher("editBook").forward(req, resp);
         } catch (Exception e){
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Author not found!");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+            req.getRequestDispatcher("editBook").forward(req, resp);
             //TODO send redirect to servlets GET
         }
 
@@ -43,7 +43,7 @@ public class BookEditServlet extends HttpServlet {
         } catch (NullPointerException e) {
         } catch (DateTimeParseException e) {
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Wrong date format! ");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+            req.getRequestDispatcher("editBook").forward(req, resp);
         }
 
         Book book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
@@ -58,7 +58,7 @@ public class BookEditServlet extends HttpServlet {
 
         if (!errorMessages.isEmpty()) {
             req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+            req.getRequestDispatcher("editBook").forward(req, resp);
         }
 
         if (BookService.getInstance().edit(book)) {
@@ -66,7 +66,7 @@ public class BookEditServlet extends HttpServlet {
             req.getRequestDispatcher("browse").forward(req, resp);
         } else {
             req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Could not save book to database");
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+            req.getRequestDispatcher("editBook").forward(req, resp);
         }
     }
 
