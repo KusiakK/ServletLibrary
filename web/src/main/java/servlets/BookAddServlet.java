@@ -5,6 +5,7 @@ import models.Book;
 import services.AuthorService;
 import services.BookService;
 import utility.ErrorMessenger;
+import utility.ServletStatics;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,7 +54,7 @@ public class BookAddServlet extends HttpServlet {
         errorMessages.addAll(ErrorMessenger.getInstance().getMessages(book));
 
         if (!errorMessages.isEmpty()) {
-            req.setAttribute("errors", errorMessages);
+            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
 
@@ -62,7 +63,7 @@ public class BookAddServlet extends HttpServlet {
             req.getRequestDispatcher("browse").forward(req, resp);
         } else {
             errorMessages.add("Could not save book to database");
-            req.setAttribute("errors", errorMessages);
+            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
     }
