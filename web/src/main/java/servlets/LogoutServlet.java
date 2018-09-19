@@ -13,7 +13,6 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (null != req.getSession(false)) {
             req.getSession(false).invalidate();
-            req.setAttribute("successHead", "Success! ");
             req.setAttribute("success", "You have been logged out.");
             req.getRequestDispatcher("/home").forward(req, resp);
         }
