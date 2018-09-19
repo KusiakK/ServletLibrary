@@ -62,7 +62,7 @@ public class Book {
         this.bookID = bookID;
     }
 
-    public boolean getBorrowed() {
+    public boolean isBorrowed() {
         return borrowed;
     }
 
