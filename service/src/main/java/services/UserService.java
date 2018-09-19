@@ -1,5 +1,6 @@
 package services;
 
+import models.User;
 import repositories.UserRepository;
 import utility.Static;
 
@@ -24,5 +25,7 @@ public class UserService {
         return instance;
     }
 
-
+    public Boolean register(User user) {
+        return null != userRepository.create(user);
+    }
 }
