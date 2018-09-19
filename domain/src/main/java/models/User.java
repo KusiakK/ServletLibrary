@@ -1,6 +1,8 @@
 package models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,26 +15,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userID;
 
+    @NotBlank
     @Column(name = "user_name", unique = true, nullable = false)
     private String userName;
 
+    @NotBlank
     @Column(name = "password")
     private String password;
 
+    @NotBlank
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @NotBlank
     @Column(name = "last_name", nullable = false)
     private String lastName;
-
-    @Column(name = "phone_number")
-    private Long phoneNumber;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "city")
-    private String city;
 
     @OneToMany(mappedBy = "userID")
     private Set<Borrow> borrows;
@@ -100,29 +97,6 @@ public class User {
         this.borrows = borrows;
     }
 
-    public Long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 
 
     @Override
@@ -135,16 +109,13 @@ public class User {
                 Objects.equals(password, user.password) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
-                Objects.equals(phoneNumber, user.phoneNumber) &&
-                Objects.equals(address, user.address) &&
-                Objects.equals(city, user.city) &&
                 Objects.equals(borrows, user.borrows) &&
                 Objects.equals(userDetails, user.userDetails);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userID, userName, password, firstName, lastName, phoneNumber, address, city, borrows, userDetails);
+        return Objects.hash(userID, userName, password, firstName, lastName, borrows, userDetails);
     }
 
     @Override
@@ -155,9 +126,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
                 ", borrows=" + borrows +
                 ", userDetails=" + userDetails +
                 '}';

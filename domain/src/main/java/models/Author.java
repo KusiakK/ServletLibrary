@@ -2,6 +2,8 @@ package models;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -15,9 +17,13 @@ public class Author implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer authorID;
 
+    @NotNull
+    @NotBlank
     @Column(name = "first_name", nullable= false)
     private String firstName;
 
+    @NotNull
+    @NotBlank
     @Column(name = "last_name", nullable = false)
     private String lastName;
 

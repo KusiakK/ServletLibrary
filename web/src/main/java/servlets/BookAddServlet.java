@@ -19,7 +19,7 @@ public class BookAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String isbnAsString = req.getParameter("isbn");
+        String isbn = req.getParameter("isbn");
         Author author = null;
         try {
             author = AuthorService.getInstance().get(Integer.parseInt(req.getParameter("author-id")));
@@ -34,27 +34,13 @@ public class BookAddServlet extends HttpServlet {
             req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
 
-        if (null == isbnAsString) {
+        if (null == isbn) {
             req.setAttribute("errorHead", "Missing ISBN! ");
             req.setAttribute("error", "ISBN number is required");
             req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
 
-        Long isbn = null;
         LocalDate releaseDate = null;
-
-        try {
-            isbn = Long.parseLong(isbnAsString);
-        } catch (NumberFormatException e) {
-            req.setAttribute("errorHead", "ISBN not a number! ");
-            req.setAttribute("error", "ISBN has to be a number type");
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
-        }
-
-        if (null == isbn) {
-            req.setAttribute("errorHead", "Something went wrong! ");
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
-        }
 
         if (!"".equals(req.getParameter("bookReleaseDate"))) {
             try {
