@@ -16,10 +16,16 @@
                 <div class="col-md-3">
                     <ul class="list-group">
                         <li class="list-group-item">${requestScope.book.author.firstName} ${requestScope.book.author.lastName}</li>
-                        <li class="list-group-item">${requestScope.book.category}</li>
                         <li class="list-group-item">${requestScope.book.isbn}</li>
-                        <li class="list-group-item">${requestScope.book.pages}</li>
-                        <li class="list-group-item">${requestScope.book.releaseDate}</li>
+                        <c:if test="${not empty requestScope.book.category}">
+                            <li class="list-group-item">${requestScope.book.category}</li>
+                        </c:if>
+                        <c:if test="${not empty requestScope.book.pages}">
+                            <li class="list-group-item">${requestScope.book.pages} pages</li>
+                        </c:if>
+                        <c:if test="${not empty requestScope.book.releaseDate}">
+                            <li class="list-group-item">${requestScope.book.releaseDate}</li>
+                        </c:if>
                     </ul>
                 </div>
                 <div class="col-md-9">
@@ -29,14 +35,14 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="btn-group" role="group" >
+                <div class="btn-group" role="group">
                     <a class="btn btn-info btn-lg" href="browse" role="button">< Back</a>
                     <c:choose>
                         <c:when test="${requestScope.book.borrowed == false}">
-                                <a class="btn btn-info btn-lg" href="browse" role="button">Borrow</a>
+                            <a class="btn btn-info btn-lg" href="browse" role="button">Borrow</a>
                         </c:when>
                         <c:otherwise>
-                                <a class="btn btn-warning btn-lg disabled" href="browse" role="button">Book borrowed!</a>
+                            <a class="btn btn-warning btn-lg disabled" href="browse" role="button">Book borrowed!</a>
                         </c:otherwise>
                     </c:choose>
                 </div>
