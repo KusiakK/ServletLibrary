@@ -15,9 +15,7 @@ public class AuthorService {
     private AuthorRepository authorRepository;
 
     private AuthorService() {
-        EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory(Static.PERSISTENCE_UNIT);
-        EntityManager entityManager = entityFactory.createEntityManager();
-        authorRepository = new AuthorRepository(entityManager);
+        authorRepository = new AuthorRepository();
     }
 
     public static AuthorService getInstance() {

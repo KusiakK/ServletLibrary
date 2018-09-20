@@ -18,24 +18,24 @@
                     <div class="form-group col-md-6">
                         <label for="login">User name</label>
                         <input type="text" class="form-control" id="login" placeholder="Enter your user name"
-                               name="login">
+                               name="login" required>
                     </div>
                     <div class="form-group col-md-6 ">
                         <label for="email">Email address</label>
                         <input type="email" class="form-control" id="email"
-                               placeholder="Enter your email" name="email">
+                               placeholder="Enter your email" name="email" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="passwordOne">Password</label>
                         <input type="password" class="form-control" id="passwordOne" placeholder="Enter your password"
-                               name="passwordOne">
+                               name="passwordOne" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="passwordTwo">Password</label>
+                        <label for="passwordTwo">Confirm password</label>
                         <input type="password" class="form-control" id="passwordTwo" placeholder="Confirm your password"
-                               name="passwordTwo">
+                               name="passwordTwo" required>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-lg btn-info d-block">Submit</button>

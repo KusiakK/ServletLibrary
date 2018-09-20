@@ -5,7 +5,7 @@ import models.User;
 import javax.persistence.EntityManager;
 
 public class UserRepository extends GenericRepository<User, Integer> {
-    public UserRepository(EntityManager entityManager) {
-        super(entityManager);
+    public UserRepository() {
+        super();
     }
 }

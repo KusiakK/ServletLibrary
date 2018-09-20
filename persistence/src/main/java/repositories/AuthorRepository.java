@@ -7,8 +7,8 @@ import java.util.List;
 
 public class AuthorRepository extends GenericRepository<Author, Integer> {
 
-    public AuthorRepository(EntityManager entityManager) {
-        super(entityManager);
+    public AuthorRepository() {
+        super();
     }
 
     public List<Author> findAll() {
