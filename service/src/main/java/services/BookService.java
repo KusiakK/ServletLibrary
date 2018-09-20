@@ -15,9 +15,7 @@ public class BookService {
     private BookRepository bookRepository;
 
     private BookService() {
-        EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory(Static.PERSISTENCE_UNIT);
-        EntityManager entityManager = entityFactory.createEntityManager();
-        bookRepository = new BookRepository(entityManager);
+        bookRepository = new BookRepository();
     }
 
     public static BookService getInstance() {

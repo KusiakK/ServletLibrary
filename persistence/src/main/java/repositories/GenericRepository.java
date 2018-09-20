@@ -1,7 +1,11 @@
 package repositories;
 
+import utility.Static;
+
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import java.lang.reflect.ParameterizedType;
 
 public abstract class GenericRepository<T, K> {
@@ -10,7 +14,9 @@ public abstract class GenericRepository<T, K> {
     protected final Class<T> entityClass;
 
     @SuppressWarnings("unchecked")
-    protected GenericRepository(EntityManager entityManager) {
+    protected GenericRepository() {
+        EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory(Static.PERSISTENCE_UNIT);
+        EntityManager entityManager = entityFactory.createEntityManager();
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
         this.em = entityManager;

@@ -13,9 +13,7 @@ public class UserService {
     private UserRepository userRepository;
 
     private UserService() {
-        EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory(Static.PERSISTENCE_UNIT);
-        EntityManager entityManager = entityFactory.createEntityManager();
-        userRepository = new UserRepository(entityManager);
+        userRepository = new UserRepository();
     }
 
     public UserService getInstance() {
