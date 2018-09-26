@@ -13,8 +13,6 @@ public class test {
 
     @Test
     public void test() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(Static.PERSISTENCE_UNIT);
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        AuthorRepository authorRepository = new AuthorRepository(entityManager);
+        AuthorRepository authorRepository = new AuthorRepository();
     }
 }

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookRepository extends GenericRepository<Book, Integer> {
-    public BookRepository(EntityManager entityManager) {
-        super(entityManager);
+    public BookRepository() {
+        super();
     }
 
     public List<Book> findAll() {

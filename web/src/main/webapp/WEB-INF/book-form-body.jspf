@@ -2,7 +2,8 @@
 <div class="row justify-content-around">
     <div class="form-group col-md-6">
         <label for="bookTitle">Title</label>
-        <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title" name="bookTitle" value="${requestScope.book.title}">
+        <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title" name="bookTitle"
+               value="${requestScope.book.title}">
     </div>
     <div class="form-group col-md-6">
         <label for="bookCategory">Category</label>
@@ -14,7 +15,7 @@
     <div class="form-group col-md-6 ">
         <label for="isbn">ISBN</label>
         <input type="number" class="form-control" id="isbn" placeholder="Enter ISBN number" name="isbn" required
-        value="${requestScope.book.isbn}">
+               value="${requestScope.book.isbn}">
     </div>
     <div class="form-group col-md-6">
         <label for="bookReleaseDate">Release date</label>
@@ -28,7 +29,16 @@
         <select name="author-id" id="author" class="custom-select">
             <option name="author-id" selected>Choose author</option>
             <c:forEach var="author" items="${requestScope.authors}">
-                <option name="author-id" value="${author.authorID}">${author.firstName} ${author.lastName}</option>
+                <c:choose>
+                    <c:when test="${author.authorID == requestScope.book.author.authorID}">
+                        <option name="author-id" value="${author.authorID}"
+                                selected>${author.firstName} ${author.lastName}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option name="author-id"
+                                value="${author.authorID}">${author.firstName} ${author.lastName}</option>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
         </select>
 
@@ -42,7 +52,8 @@
 <div class="row justify-content-around">
     <div class="form-group col-md-12">
         <label for="bookSummary">Summary</label>
-        <textarea class="form-control" id="bookSummary" placeholder="Enter summary" name="bookSummary">${requestScope.book.summary}</textarea>
+        <textarea class="form-control" id="bookSummary" placeholder="Enter summary"
+                  name="bookSummary">${requestScope.book.summary}</textarea>
     </div>
 </div>
 <input type="hidden" name="book-id" value="${requestScope.book.bookID}">
