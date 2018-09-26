@@ -35,14 +35,13 @@ public class BookAddServlet extends HttpServlet {
 
         LocalDate releaseDate = null;
 
-//        try {
-//            int authorID = Integer.parseInt(req.getParameter("author-id"));
-//            author = AuthorService.getInstance().get(authorID);
-//        } catch (NumberFormatException e) {
-//            errorMessages.add("You must pick an Author from the list");
-//        } catch (Exception e) {
-//            errorMessages.add("Author not found!");
-//        }
+        Integer pages = null;
+
+        try {
+            int authorID = Integer.parseInt(req.getParameter("author-id"));
+            author = AuthorService.getInstance().get(authorID);
+        } catch (Exception e) {
+        }
 
         if (!req.getParameter("bookReleaseDate").isEmpty()) {
             try {
@@ -54,10 +53,19 @@ public class BookAddServlet extends HttpServlet {
             }
         }
 
+        if (!req.getParameter("bookPages").isEmpty()) {
+            try {
+                pages = Integer.parseInt(req.getParameter("bookPages"));
+            } catch (NumberFormatException e){
+                errorMessages.add("Wrong pages format!");
+            }
+        }
+
         book.setIsbn(req.getParameter("isbn"));
         book.setReleaseDate(releaseDate);
         book.setTitle(req.getParameter("bookTitle"));
         book.setCategory(req.getParameter("bookCategory"));
+        book.setPages(pages);
         book.setAuthor(author);
         book.setSummary(req.getParameter("bookSummary"));
 

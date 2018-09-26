@@ -29,22 +29,28 @@ public class BookEditServlet extends HttpServlet {
 
         LocalDate releaseDate = null;
 
-//        try {
-//            int authorID = Integer.parseInt(req.getParameter("author-id"));
-//            author = AuthorService.getInstance().get(authorID);
-//        } catch (NumberFormatException e) {
-//            errorMessages.add("You must pick an Author from the list");
-//        } catch (Exception e) {
-//            errorMessages.add("Author not found!");
-//        }
+        Integer pages = null;
+
+        try {
+            int authorID = Integer.parseInt(req.getParameter("author-id"));
+            author = AuthorService.getInstance().get(authorID);
+        } catch (Exception e) {
+        }
 
         if (!req.getParameter("bookReleaseDate").isEmpty()) {
             try {
                 String releaseDateString = req.getParameter("bookReleaseDate");
                 releaseDate = LocalDate.parse(releaseDateString);
-            } catch (NullPointerException e) {
             } catch (DateTimeParseException e) {
                 errorMessages.add("Wrong date format!");
+            }
+        }
+
+        if (!req.getParameter("bookPages").isEmpty()) {
+            try {
+                pages = Integer.parseInt(req.getParameter("bookPages"));
+            } catch (NumberFormatException e){
+                errorMessages.add("Wrong pages format!");
             }
         }
 
@@ -53,6 +59,7 @@ public class BookEditServlet extends HttpServlet {
         book.setReleaseDate(releaseDate);
         book.setTitle(req.getParameter("bookTitle"));
         book.setCategory(req.getParameter("bookCategory"));
+        book.setPages(pages);
         book.setAuthor(author);
         book.setSummary(req.getParameter("bookSummary"));
 
@@ -79,7 +86,7 @@ public class BookEditServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        loadPage(req,resp);
+        loadPage(req, resp);
         req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
     }
 
