@@ -5,7 +5,7 @@ import models.Author;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class AuthorRepository extends GenericRepository<Author, Integer> {
+public class AuthorRepository extends GenericRepository<Author, Integer>        {
 
     public AuthorRepository(EntityManager entityManager) {
         super(entityManager);
