@@ -2,7 +2,7 @@ package servlets;
 
 import models.Book;
 import services.BookService;
-import utility.ServletStatics;
+import utility.ServletUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ public class BookDeleteServlet extends HttpServlet {
 
         if (null == req.getParameter("book-id")) {
             errorMessages.add("You must pick a book to delete!");
-            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("browse").forward(req, resp);
         }
 
@@ -37,7 +37,7 @@ public class BookDeleteServlet extends HttpServlet {
             bookID = Integer.parseInt(req.getParameter("book-id"));
         } catch (NumberFormatException e) {
             errorMessages.add("Book does not exist!");
-            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("browse").forward(req, resp);
         }
 
@@ -51,7 +51,7 @@ public class BookDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (null == req.getParameter("book-id")) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to delete! ");
+            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to delete! ");
             req.getRequestDispatcher("browse").forward(req, resp);
         }
         req.getRequestDispatcher("book-delete.jsp").forward(req, resp);

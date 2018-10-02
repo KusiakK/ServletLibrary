@@ -2,11 +2,6 @@ package services;
 
 import models.User;
 import repositories.UserRepository;
-import utility.Static;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class UserService {
     private UserService instance;

@@ -5,7 +5,7 @@ import models.Book;
 import services.AuthorService;
 import services.BookService;
 import utility.ErrorMessenger;
-import utility.ServletStatics;
+import utility.ServletUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,7 +68,7 @@ public class BookEditServlet extends HttpServlet {
         if (!errorMessages.isEmpty()) {
             req.setAttribute("authors", AuthorService.getInstance().getAll());
             req.setAttribute("book", book);
-            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
         }
 
@@ -79,7 +79,7 @@ public class BookEditServlet extends HttpServlet {
             req.setAttribute("authors", AuthorService.getInstance().getAll());
             req.setAttribute("book", book);
             errorMessages.add("Could not save book to database");
-            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
         }
     }
@@ -96,10 +96,10 @@ public class BookEditServlet extends HttpServlet {
         try {
             book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
         } catch (NullPointerException e) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Book ID missing!");
+            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "Book ID missing!");
             req.getRequestDispatcher("browse").forward(req, resp);
         } catch (NumberFormatException e) {
-            req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to edit!");
+            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to edit!");
             req.getRequestDispatcher("browse").forward(req, resp);
         }
         req.setAttribute("authors", AuthorService.getInstance().getAll());

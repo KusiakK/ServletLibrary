@@ -1,6 +1,6 @@
 package repositories;
 
-import utility.Static;
+import utility.PersistenceUtility;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,7 +15,7 @@ public abstract class GenericRepository<T, K> {
 
     @SuppressWarnings("unchecked")
     protected GenericRepository() {
-        EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory(Static.PERSISTENCE_UNIT);
+        EntityManagerFactory entityFactory = Persistence.createEntityManagerFactory(PersistenceUtility.PERSISTENCE_UNIT);
         EntityManager entityManager = entityFactory.createEntityManager();
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];

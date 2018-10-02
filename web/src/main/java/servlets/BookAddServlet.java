@@ -5,7 +5,7 @@ import models.Book;
 import services.AuthorService;
 import services.BookService;
 import utility.ErrorMessenger;
-import utility.ServletStatics;
+import utility.ServletUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @WebServlet("/addBook")
@@ -74,7 +73,7 @@ public class BookAddServlet extends HttpServlet {
         if (!errorMessages.isEmpty()) {
             req.setAttribute("authors", AuthorService.getInstance().getAll());
             req.setAttribute("book", book);
-            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
 
@@ -85,7 +84,7 @@ public class BookAddServlet extends HttpServlet {
             req.setAttribute("authors", AuthorService.getInstance().getAll());
             req.setAttribute("book", book);
             errorMessages.add("Could not save book to database");
-            req.setAttribute(ServletStatics.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("book-add.jsp").forward(req, resp);
         }
     }
