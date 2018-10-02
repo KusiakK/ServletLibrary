@@ -1,5 +1,5 @@
 package utility;
 
-public class Static {
+public class PersistenceUtility {
     public static final String PERSISTENCE_UNIT = "library";
 }

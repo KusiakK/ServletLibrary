@@ -1,6 +1,6 @@
 package servlets;
 
-import utility.ServletStatics;
+import utility.ServletUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +38,7 @@ public class BrowseOptionServlet extends HttpServlet {
                 break;
             }
             default: {
-                req.setAttribute(ServletStatics.SINGLE_ERROR_ATTRIBUTE, "Unknown action type.");
+                req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "Unknown action type.");
                 req.getRequestDispatcher("browse.jsp").forward(req, resp);
                 break;
             }

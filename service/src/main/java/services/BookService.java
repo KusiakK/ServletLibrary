@@ -2,11 +2,7 @@ package services;
 
 import models.Book;
 import repositories.BookRepository;
-import utility.Static;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 
 public class BookService {
