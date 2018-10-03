@@ -101,7 +101,7 @@ public class BookAddServlet extends HttpServlet {
             int authorID = Integer.parseInt(req.getParameter("author-id"));
             author = AuthorService.getInstance().get(authorID);
         } catch (NumberFormatException e) {
-            errorMessages.add("Author not found!");
+            // handled by validator
         }
         return author;
     }
@@ -113,7 +113,7 @@ public class BookAddServlet extends HttpServlet {
                 String releaseDateParam = req.getParameter("bookReleaseDate");
                 releaseDate = LocalDate.parse(releaseDateParam);
             } catch (DateTimeParseException e) {
-                errorMessages.add("Wrong date format! ");
+                errorMessages.add("Wrong date format!");
             }
         }
         return releaseDate;

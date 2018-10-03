@@ -10,6 +10,7 @@
 <div class="container d-flex h-100 m-auto">
     <div class="my-auto w-100">
         <div class="my-6 w-100">
+            <jsp:include page="WEB-INF/notifications.jspf"/>
             <p class="lead font-weight-light">Delete book</p>
             <hr class="my-4 bg-info opacity">
             <p class="font-weight-light">Are you sure you want to delete book?</p>

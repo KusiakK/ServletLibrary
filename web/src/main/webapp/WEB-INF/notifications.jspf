@@ -6,13 +6,13 @@
 </c:if>
 <c:if test="${not empty requestScope.errors}">
     <c:forEach var="errorMessage" items="${requestScope.errors}">
-        <div class="alert alert-danger">
+        <div class="alert alert-warning">
                 ${errorMessage}
         </div>
     </c:forEach>
 </c:if>
 <c:if test="${not empty requestScope.success}">
-    <div class="alert alert-success">
+    <div class="alert alert-info">
             ${requestScope.success}
     </div>
 </c:if>
