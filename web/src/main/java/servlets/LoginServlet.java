@@ -23,14 +23,8 @@ public class LoginServlet extends HttpServlet {
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        Boolean userFound = false;
-        try {
-            userFound = UserService.getInstance().login(login, password);
-        } catch (IncorrectLoginDetailsException e) {
-            errorMessages.add("Incorrect Login Details!");
-        } catch (Exception e) {
-            errorMessages.add("Cannot log in!");
-        }
+
+        Boolean userFound = findUser(errorMessages, login, password);
 
         if (userFound) {
             req.getSession(true).setAttribute("login", login);
@@ -45,5 +39,18 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("login.jsp").forward(req, resp);
+    }
+
+    private Boolean findUser(List<String> errorMessages, String login, String password) {
+        Boolean userFound = false;
+
+        try {
+            userFound = UserService.getInstance().login(login, password);
+        } catch (IncorrectLoginDetailsException e) {
+            errorMessages.add("Incorrect Login Details!");
+        } catch (Exception e) {
+            errorMessages.add("Cannot log in!");
+        }
+        return userFound;
     }
 }
