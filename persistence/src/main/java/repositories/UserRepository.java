@@ -1,5 +1,6 @@
 package repositories;
 
+import exceptions.UserNotFoundException;
 import models.User;
 
 import javax.persistence.EntityManager;
@@ -11,10 +12,18 @@ public class UserRepository extends GenericRepository<User, Integer> {
         super();
     }
 
-    public User findByLogin(String login) {
+    public User findByLogin(String login) throws UserNotFoundException {
         TypedQuery<User> query = em.createQuery("SELECT user FROM User user WHERE user.login = :login", User.class);
         query.setParameter("login", login);
 //        TODO find solution for it returning null
-        return query.getSingleResult();
+        User user = null;
+
+        try {
+            user = query.getSingleResult();
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException();
+        }
+
+        return user;
     }
 }

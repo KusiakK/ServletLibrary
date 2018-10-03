@@ -25,10 +25,14 @@ public class UserService {
     }
 
     public User login(String login, String password) throws UserNotFoundException, PasswordNotMatchingException {
-        User user = repository.findByLogin(login);
+        User user = null;
+
+        user = repository.findByLogin(login);
+
         if (null == user) {
             throw new UserNotFoundException();
         }
+
         if (!user.getPassword().equals(password)) {
             throw new PasswordNotMatchingException();
         }
