@@ -16,7 +16,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest httpReq = (HttpServletRequest) req;
         if (null != req.getParameter("actionType") && "showBook".equals(req.getParameter("actionType"))) {
             chain.doFilter(req, resp);
-        } else if (null != httpReq.getSession(false) && null != httpReq.getSession(false).getAttribute("userName")) {
+        } else if (null != httpReq.getSession(false) && null != httpReq.getSession(false).getAttribute("login")) {
             chain.doFilter(req, resp);
         } else {
             req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "You have to log in first! ");

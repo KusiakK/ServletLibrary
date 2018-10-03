@@ -24,8 +24,8 @@ public class UserService {
         return repository.create(user);
     }
 
-    public User login(String userName, String password) throws UserNotFoundException, PasswordNotMatchingException {
-        User user = repository.findByUserName(userName);
+    public User login(String login, String password) throws UserNotFoundException, PasswordNotMatchingException {
+        User user = repository.findByLogin(login);
         if (null == user) {
             throw new UserNotFoundException();
         }
