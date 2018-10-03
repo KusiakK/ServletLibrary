@@ -10,8 +10,8 @@
 <div class="container d-flex h-100 m-auto">
     <div class="my-auto w-100">
         <div class="my-6 w-100">
-            <p class="lead font-weight-light">Register</p>
             <jsp:include page="WEB-INF/notifications.jspf"/>
+            <p class="lead font-weight-light">Register</p>
             <hr class="my-4 bg-info opacity">
             <form action="register" method="POST">
                 <div class="row">
