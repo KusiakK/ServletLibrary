@@ -25,8 +25,8 @@ public class BookAddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> errorMessages = new ArrayList<>();
 
-        Author author = getAuthor(req);
-        LocalDate releaseDate = getLocalDate(req, errorMessages);
+        Author author = getAuthor(req, errorMessages);
+        LocalDate releaseDate = getDate(req, errorMessages);
         Integer pages = getPages(req, errorMessages);
 
         Book book = assembleBook(req, author, releaseDate, pages);
@@ -67,7 +67,7 @@ public class BookAddServlet extends HttpServlet {
     }
 
 
-    private Book assembleBook(HttpServletRequest req, Author author, LocalDate releaseDate, Integer pages) {
+    protected Book assembleBook(HttpServletRequest req, Author author, LocalDate releaseDate, Integer pages) {
         Book book = (Book) req.getAttribute("book");
         if (null == book) {
             book = new Book();
@@ -84,7 +84,7 @@ public class BookAddServlet extends HttpServlet {
         return book;
     }
 
-    private Integer getPages(HttpServletRequest req, List<String> errorMessages) {
+    protected Integer getPages(HttpServletRequest req, List<String> errorMessages) {
         Integer pages = null;
         if (!req.getParameter("bookPages").isEmpty()) {
             try {
@@ -96,14 +96,18 @@ public class BookAddServlet extends HttpServlet {
         return pages;
     }
 
-    private Author getAuthor(HttpServletRequest req) {
+    protected Author getAuthor(HttpServletRequest req, List<String> errorMessages) {
         Author author = null;
-        int authorID = Integer.parseInt(req.getParameter("author-id"));
-        author = AuthorService.getInstance().get(authorID);
+        try {
+            int authorID = Integer.parseInt(req.getParameter("author-id"));
+            author = AuthorService.getInstance().get(authorID);
+        } catch (NumberFormatException e) {
+            errorMessages.add("Author not found!");
+        }
         return author;
     }
 
-    private LocalDate getLocalDate(HttpServletRequest req, List<String> errorMessages) {
+    protected LocalDate getDate(HttpServletRequest req, List<String> errorMessages) {
         LocalDate releaseDate = null;
         if (!req.getParameter("bookReleaseDate").isEmpty()) {
             try {

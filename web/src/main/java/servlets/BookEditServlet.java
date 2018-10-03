@@ -19,59 +19,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/editBook")
-public class BookEditServlet extends HttpServlet {
+public class BookEditServlet extends BookAddServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> errorMessages = new ArrayList<>();
 
-        Author author = null;
+        Author author = getAuthor(req, errorMessages);
+        LocalDate releaseDate = getDate(req, errorMessages);
+        Integer pages = getPages(req, errorMessages);
 
-        LocalDate releaseDate = null;
-
-        Integer pages = null;
-
-        try {
-            int authorID = Integer.parseInt(req.getParameter("author-id"));
-            author = AuthorService.getInstance().get(authorID);
-        } catch (Exception e) {
-        }
-
-        if (!req.getParameter("bookReleaseDate").isEmpty()) {
-            try {
-                String releaseDateString = req.getParameter("bookReleaseDate");
-                releaseDate = LocalDate.parse(releaseDateString);
-            } catch (DateTimeParseException e) {
-                errorMessages.add("Wrong date format!");
-            }
-        }
-
-        if (!req.getParameter("bookPages").isEmpty()) {
-            try {
-                pages = Integer.parseInt(req.getParameter("bookPages"));
-            } catch (NumberFormatException e){
-                errorMessages.add("Wrong pages format!");
-            }
-        }
-
-        Book book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
-        book.setIsbn(req.getParameter("isbn"));
-        book.setReleaseDate(releaseDate);
-        book.setTitle(req.getParameter("bookTitle"));
-        book.setCategory(req.getParameter("bookCategory"));
-        book.setPages(pages);
-        book.setAuthor(author);
-        book.setSummary(req.getParameter("bookSummary"));
+        Book book = assembleBook(req, author, releaseDate, pages);
 
         errorMessages.addAll(ErrorMessenger.getInstance().getMessages(book));
 
-        if (!errorMessages.isEmpty()) {
-            req.setAttribute("authors", AuthorService.getInstance().getAll());
-            req.setAttribute("book", book);
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
-        }
+        redirectIfErrors(req, resp, errorMessages, book);
 
+        createBookAndRedirect(req, resp, errorMessages, book);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        loadPage(req, resp);
+        req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+    }
+
+    private void createBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
         if (BookService.getInstance().edit(book)) {
             req.setAttribute("success", "Book edited!");
             req.getRequestDispatcher("browse").forward(req, resp);
@@ -84,12 +57,27 @@ public class BookEditServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        loadPage(req, resp);
-        req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+    private void redirectIfErrors(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
+        if (!errorMessages.isEmpty()) {
+            req.setAttribute("authors", AuthorService.getInstance().getAll());
+            req.setAttribute("book", book);
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
+        }
     }
 
+    @Override
+    protected Book assembleBook(HttpServletRequest req, Author author, LocalDate releaseDate, Integer pages) {
+        Book book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
+        book.setIsbn(req.getParameter("isbn"));
+        book.setReleaseDate(releaseDate);
+        book.setTitle(req.getParameter("bookTitle"));
+        book.setCategory(req.getParameter("bookCategory"));
+        book.setPages(pages);
+        book.setAuthor(author);
+        book.setSummary(req.getParameter("bookSummary"));
+        return book;
+    }
 
     private void loadPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Book book = null;
