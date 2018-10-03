@@ -5,7 +5,7 @@ import repositories.UserRepository;
 import exceptions.IncorrectLoginDetailsException;
 
 public class UserService {
-    private static UserService instance;
+    private static final UserService instance = new UserService();
     private UserRepository repository;
 
     private UserService() {
@@ -13,9 +13,6 @@ public class UserService {
     }
 
     public static UserService getInstance() {
-        if (null == instance) {
-            instance = new UserService();
-        }
         return instance;
     }
 
