@@ -44,28 +44,6 @@ public class BookEditServlet extends BookAddServlet {
         req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
     }
 
-    private void createBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
-        if (BookService.getInstance().edit(book)) {
-            req.setAttribute("success", "Book edited!");
-            req.getRequestDispatcher("browse").forward(req, resp);
-        } else {
-            req.setAttribute("authors", AuthorService.getInstance().getAll());
-            req.setAttribute("book", book);
-            errorMessages.add("Could not save book to database");
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
-        }
-    }
-
-    private void redirectIfErrors(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
-        if (!errorMessages.isEmpty()) {
-            req.setAttribute("authors", AuthorService.getInstance().getAll());
-            req.setAttribute("book", book);
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-edit.jsp").forward(req, resp);
-        }
-    }
-
     @Override
     protected Book assembleBook(HttpServletRequest req, Author author, LocalDate releaseDate, Integer pages) {
         Book book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
