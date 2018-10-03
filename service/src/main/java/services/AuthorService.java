@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AuthorService {
 
-    private static AuthorService instance;
+    private static final AuthorService instance = new AuthorService();
     private AuthorRepository authorRepository;
 
     private AuthorService() {
@@ -15,9 +15,6 @@ public class AuthorService {
     }
 
     public static AuthorService getInstance() {
-        if (null == instance) {
-            instance = new AuthorService();
-        }
         return instance;
     }
 

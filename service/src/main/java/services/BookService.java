@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BookService {
 
-    private static BookService instance;
+    private static final BookService instance = new BookService();
     private BookRepository bookRepository;
 
     private BookService() {
@@ -15,9 +15,6 @@ public class BookService {
     }
 
     public static BookService getInstance() {
-        if (null == instance){
-            instance = new BookService();
-        }
         return instance;
     }
 
