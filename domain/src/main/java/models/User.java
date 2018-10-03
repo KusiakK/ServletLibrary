@@ -2,7 +2,6 @@ package models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,8 +15,8 @@ public class User {
     private Integer userID;
 
     @NotBlank
-    @Column(name = "user_name", unique = true, nullable = false)
-    private String userName;
+    @Column(unique = true, nullable = false)
+    private String login;
 
     @NotBlank
     @Column(name = "password")
@@ -41,12 +40,12 @@ public class User {
     public User() {
     }
 
-    public String getUserName() {
-        return userName;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUserName(String borrowerID) {
-        this.userName = borrowerID;
+    public void setLogin(String borrowerID) {
+        this.login = borrowerID;
     }
 
     public String getFirstName() {
@@ -105,7 +104,7 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return Objects.equals(userID, user.userID) &&
-                Objects.equals(userName, user.userName) &&
+                Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
@@ -115,14 +114,14 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userID, userName, password, firstName, lastName, borrows, userDetails);
+        return Objects.hash(userID, login, password, firstName, lastName, borrows, userDetails);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "userID=" + userID +
-                ", userName='" + userName + '\'' +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

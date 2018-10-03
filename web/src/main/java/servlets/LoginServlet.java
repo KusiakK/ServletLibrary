@@ -23,13 +23,13 @@ public class LoginServlet extends HttpServlet {
         List<String> errorMessages = new ArrayList<>();
 
 
-        String userName = req.getParameter("userName");
+        String login = req.getParameter("login");
         String password = req.getParameter("password");
 
 
         User user = null;
         try {
-            user = UserService.getInstance().login(userName, password);
+            user = UserService.getInstance().login(login, password);
         } catch (UserNotFoundException e) {
             errorMessages.add("User name not found!");
         } catch (PasswordNotMatchingException e) {
@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (null != user) {
-            req.getSession(true).setAttribute("userName", user.getUserName());
+            req.getSession(true).setAttribute("login", user.getLogin());
             req.setAttribute("success", "You have been logged in!");
             req.getRequestDispatcher("/home").forward(req, resp);
         } else {

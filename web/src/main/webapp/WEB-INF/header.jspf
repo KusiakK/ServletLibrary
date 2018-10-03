@@ -17,7 +17,7 @@
                     </li>
                 </ul>
                 <c:choose>
-                    <c:when test="${empty sessionScope.userName}">
+                    <c:when test="${empty sessionScope.login}">
                         <ul class="navbar-nav pr-4">
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="login">Sign in</a>
@@ -30,7 +30,7 @@
                     <c:otherwise>
                         <ul class="navbar-nav pr-4">
                             <li class="nav-item">
-                                <span class="nav-link text-light">${sessionScope.userName}</span>
+                                <span class="nav-link text-light">${sessionScope.login}</span>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="logout">Logout</a>
