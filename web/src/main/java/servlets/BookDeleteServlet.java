@@ -20,17 +20,35 @@ public class BookDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> errorMessages = new ArrayList<>();
 
-        if (!"confirm".equals(req.getParameter("deleteConfirmation"))) {
+        if (!isDeleteConfirmed(req)) {
             resp.sendRedirect("browse");
             return;
         }
 
+        redirectIfBookIdNull(req, resp, errorMessages);
+
+        Integer bookID = getBookId(req, resp, errorMessages);
+
+        createBookAndRedirect(req, resp, bookID);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (null == req.getParameter("book-id")) {
-            errorMessages.add("You must pick a book to delete!");
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to delete! ");
             req.getRequestDispatcher("browse").forward(req, resp);
         }
+        req.getRequestDispatcher("book-delete.jsp").forward(req, resp);
+    }
 
+    private void createBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, Integer bookID) throws ServletException, IOException {
+        Book book = BookService.getInstance().get(bookID);
+        BookService.getInstance().delete(book);
+        req.setAttribute("success", "Book deleted from the library.");
+        req.getRequestDispatcher("browse").forward(req, resp);
+    }
+
+    private Integer getBookId(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages) throws ServletException, IOException {
         Integer bookID = null;
 
         try {
@@ -41,19 +59,18 @@ public class BookDeleteServlet extends HttpServlet {
             req.getRequestDispatcher("browse").forward(req, resp);
         }
 
-        Book book = BookService.getInstance().get(bookID);
-        BookService.getInstance().delete(book);
-        req.setAttribute("success", "Book deleted from the library.");
-        req.getRequestDispatcher("browse").forward(req, resp);
-
+        return bookID;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private boolean isDeleteConfirmed(HttpServletRequest req) {
+        return "confirm".equals(req.getParameter("deleteConfirmation"));
+    }
+
+    private void redirectIfBookIdNull(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages) throws ServletException, IOException {
         if (null == req.getParameter("book-id")) {
-            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to delete! ");
+            errorMessages.add("You must pick a book to delete!");
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("browse").forward(req, resp);
         }
-        req.getRequestDispatcher("book-delete.jsp").forward(req, resp);
     }
 }
