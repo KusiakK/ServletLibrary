@@ -13,7 +13,7 @@
             <p class="lead font-weight-light">Login</p>
             <jsp:include page="WEB-INF/notifications.jspf"/>
             <hr class="my-4 bg-info opacity">
-            <form action="login" method="POST">
+            <form action="/login" method="POST">
                 <div class="row justify-content-around">
                     <div class="form-group col-md-6">
                         <label for="login">User name</label>

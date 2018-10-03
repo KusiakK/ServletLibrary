@@ -1,9 +1,8 @@
 package services;
 
-import exceptions.PasswordNotMatchingException;
 import models.User;
 import repositories.UserRepository;
-import exceptions.UserNotFoundException;
+import exceptions.IncorrectLoginDetailsException;
 
 public class UserService {
     private static UserService instance;
@@ -24,18 +23,7 @@ public class UserService {
         return repository.create(user);
     }
 
-    public User login(String login, String password) throws UserNotFoundException, PasswordNotMatchingException {
-        User user = null;
-
-        user = repository.findByLogin(login);
-
-        if (null == user) {
-            throw new UserNotFoundException();
-        }
-
-        if (!user.getPassword().equals(password)) {
-            throw new PasswordNotMatchingException();
-        }
-        return user;
+    public Boolean login(String login, String password) throws IncorrectLoginDetailsException {
+        return repository.login(login, password);
     }
 }

@@ -1,7 +1,6 @@
 package servlets;
 
-import exceptions.PasswordNotMatchingException;
-import exceptions.UserNotFoundException;
+import exceptions.IncorrectLoginDetailsException;
 import models.User;
 import services.UserService;
 import utility.ServletUtility;
@@ -22,24 +21,19 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> errorMessages = new ArrayList<>();
 
-
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-
-
-        User user = null;
+        Boolean userFound = false;
         try {
-            user = UserService.getInstance().login(login, password);
-        } catch (UserNotFoundException e) {
-            errorMessages.add("User name not found!");
-        } catch (PasswordNotMatchingException e) {
-            errorMessages.add("Wrong Password!");
+            userFound = UserService.getInstance().login(login, password);
+        } catch (IncorrectLoginDetailsException e) {
+            errorMessages.add("Incorrect Login Details!");
         } catch (Exception e) {
-            errorMessages.add("Unknown Error!");
+            errorMessages.add("Cannot log in!");
         }
 
-        if (null != user) {
-            req.getSession(true).setAttribute("login", user.getLogin());
+        if (userFound) {
+            req.getSession(true).setAttribute("login", login);
             req.setAttribute("success", "You have been logged in!");
             req.getRequestDispatcher("/home").forward(req, resp);
         } else {
