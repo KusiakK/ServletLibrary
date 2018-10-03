@@ -38,34 +38,11 @@ public class BookAddServlet extends HttpServlet {
         createBookAndRedirect(req, resp, errorMessages, book);
     }
 
-    private void createBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
-        if (BookService.getInstance().add(book)) {
-            req.setAttribute("success", "Book added to library!");
-            req.getRequestDispatcher("browse").forward(req, resp);
-        } else {
-            req.setAttribute("authors", AuthorService.getInstance().getAll());
-            req.setAttribute("book", book);
-            errorMessages.add("Could not save book to database");
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
-        }
-    }
-
-    private void redirectIfErrors(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
-        if (!errorMessages.isEmpty()) {
-            req.setAttribute("authors", AuthorService.getInstance().getAll());
-            req.setAttribute("book", book);
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
-        }
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("authors", AuthorService.getInstance().getAll());
         req.getRequestDispatcher("book-add.jsp").forward(req, resp);
     }
-
 
     protected Book assembleBook(HttpServletRequest req, Author author, LocalDate releaseDate, Integer pages) {
         Book book = (Book) req.getAttribute("book");
@@ -82,6 +59,28 @@ public class BookAddServlet extends HttpServlet {
         book.setSummary(req.getParameter("bookSummary"));
 
         return book;
+    }
+
+    protected void createBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
+        if (BookService.getInstance().add(book)) {
+            req.setAttribute("success", "Book added to library!");
+            req.getRequestDispatcher("browse").forward(req, resp);
+        } else {
+            req.setAttribute("authors", AuthorService.getInstance().getAll());
+            req.setAttribute("book", book);
+            errorMessages.add("Could not save book to database");
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+        }
+    }
+
+    protected void redirectIfErrors(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
+        if (!errorMessages.isEmpty()) {
+            req.setAttribute("authors", AuthorService.getInstance().getAll());
+            req.setAttribute("book", book);
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+        }
     }
 
     protected Integer getPages(HttpServletRequest req, List<String> errorMessages) {
