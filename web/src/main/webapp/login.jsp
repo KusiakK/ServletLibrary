@@ -16,8 +16,8 @@
             <form action="login" method="POST">
                 <div class="row justify-content-around">
                     <div class="form-group col-md-6">
-                        <label for="login">User name</label>
-                        <input type="text" class="form-control" id="login" placeholder="Enter your login" name="login">
+                        <label for="userName">User name</label>
+                        <input type="text" class="form-control" id="userName" placeholder="Enter your login" name="userName">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="password">Password</label>
