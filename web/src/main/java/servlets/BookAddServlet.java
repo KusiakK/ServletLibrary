@@ -29,27 +29,16 @@ public class BookAddServlet extends HttpServlet {
         LocalDate releaseDate = getLocalDate(req, errorMessages);
         Integer pages = getPages(req, errorMessages);
 
-        Book book = createBook(req, author, releaseDate, pages);
+        Book book = assembleBook(req, author, releaseDate, pages);
 
         errorMessages.addAll(ErrorMessenger.getInstance().getMessages(book));
 
-        handleRedirection(resp, req, errorMessages, book);
+        redirectIfErrors(req, resp, errorMessages, book);
+
+        createBookAndRedirect(req, resp, errorMessages, book);
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("authors", AuthorService.getInstance().getAll());
-        req.getRequestDispatcher("book-add.jsp").forward(req, resp);
-    }
-
-    private void handleRedirection(HttpServletResponse resp, HttpServletRequest req, List<String> errorMessages, Book book) throws ServletException, IOException {
-        if (!errorMessages.isEmpty()) {
-            req.setAttribute("authors", AuthorService.getInstance().getAll());
-            req.setAttribute("book", book);
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
-        }
-
+    private void createBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
         if (BookService.getInstance().add(book)) {
             req.setAttribute("success", "Book added to library!");
             req.getRequestDispatcher("browse").forward(req, resp);
@@ -62,7 +51,23 @@ public class BookAddServlet extends HttpServlet {
         }
     }
 
-    private Book createBook(HttpServletRequest req, Author author, LocalDate releaseDate, Integer pages) {
+    private void redirectIfErrors(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
+        if (!errorMessages.isEmpty()) {
+            req.setAttribute("authors", AuthorService.getInstance().getAll());
+            req.setAttribute("book", book);
+            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("authors", AuthorService.getInstance().getAll());
+        req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+    }
+
+
+    private Book assembleBook(HttpServletRequest req, Author author, LocalDate releaseDate, Integer pages) {
         Book book = (Book) req.getAttribute("book");
         if (null == book) {
             book = new Book();
