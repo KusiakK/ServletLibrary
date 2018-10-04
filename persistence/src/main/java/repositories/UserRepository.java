@@ -22,4 +22,18 @@ public class UserRepository extends GenericRepository<User, Integer> {
         }
         return true;
     }
+
+    public User find(String login) {
+        Query query = em.createQuery("SELECT user FROM User user WHERE user.login = :login");
+        query.setParameter("login", login);
+
+        User user = null;
+        try {
+            query.getSingleResult();
+        } catch (NullPointerException e) {
+            // do nothing
+        }
+        return user;
+
+    }
 }

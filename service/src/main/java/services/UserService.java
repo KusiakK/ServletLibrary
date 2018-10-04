@@ -23,4 +23,8 @@ public class UserService {
     public Boolean login(String login, String password) throws IncorrectLoginDetailsException {
         return repository.login(login, password);
     }
-}
+
+    public Boolean isLoginTaken(String login) {
+        return repository.find(login) != null;
+    }
+ }
