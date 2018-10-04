@@ -1,9 +1,8 @@
 package servlets;
 
 import exceptions.IncorrectLoginDetailsException;
-import models.User;
 import services.UserService;
-import utility.ServletUtility;
+import utility.MessageUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,7 +30,7 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("success", "You have been logged in!");
             req.getRequestDispatcher("/home").forward(req, resp);
         } else {
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.setAttribute(MessageUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
     }

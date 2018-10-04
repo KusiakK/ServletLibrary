@@ -5,7 +5,7 @@ import models.Book;
 import services.AuthorService;
 import services.BookService;
 import utility.ErrorMessenger;
-import utility.ServletUtility;
+import utility.MessageUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,14 +25,12 @@ public class BookAddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> errorMessages = new ArrayList<>();
 
-        Author author = getAuthor(req, errorMessages);
+        Author author = getAuthor(req);
         LocalDate releaseDate = getDate(req, errorMessages);
         Integer pages = getPages(req, errorMessages);
-
         Book book = assembleBook(req, author, releaseDate, pages);
 
         errorMessages.addAll(ErrorMessenger.getInstance().getMessages(book));
-
         redirectIfErrors(req, resp, errorMessages, book);
 
         createBookAndRedirect(req, resp, errorMessages, book);
@@ -44,58 +42,7 @@ public class BookAddServlet extends HttpServlet {
         req.getRequestDispatcher("book-add.jsp").forward(req, resp);
     }
 
-    protected Book assembleBook(HttpServletRequest req, Author author, LocalDate releaseDate, Integer pages) {
-        Book book = (Book) req.getAttribute("book");
-        if (null == book) {
-            book = new Book();
-        }
-
-        book.setIsbn(req.getParameter("isbn"));
-        book.setReleaseDate(releaseDate);
-        book.setTitle(req.getParameter("bookTitle"));
-        book.setCategory(req.getParameter("bookCategory"));
-        book.setPages(pages);
-        book.setAuthor(author);
-        book.setSummary(req.getParameter("bookSummary"));
-
-        return book;
-    }
-
-    protected void createBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
-        if (BookService.getInstance().add(book)) {
-            req.setAttribute("success", "Book added to library!");
-            req.getRequestDispatcher("browse").forward(req, resp);
-        } else {
-            req.setAttribute("authors", AuthorService.getInstance().getAll());
-            req.setAttribute("book", book);
-            errorMessages.add("Could not save book to database");
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
-        }
-    }
-
-    protected void redirectIfErrors(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
-        if (!errorMessages.isEmpty()) {
-            req.setAttribute("authors", AuthorService.getInstance().getAll());
-            req.setAttribute("book", book);
-            req.setAttribute(ServletUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
-        }
-    }
-
-    protected Integer getPages(HttpServletRequest req, List<String> errorMessages) {
-        Integer pages = null;
-        if (!req.getParameter("bookPages").isEmpty()) {
-            try {
-                pages = Integer.parseInt(req.getParameter("bookPages"));
-            } catch (NumberFormatException e) {
-                errorMessages.add("Wrong pages format!");
-            }
-        }
-        return pages;
-    }
-
-    protected Author getAuthor(HttpServletRequest req, List<String> errorMessages) {
+    protected Author getAuthor(HttpServletRequest req) {
         Author author = null;
         try {
             int authorID = Integer.parseInt(req.getParameter("author-id"));
@@ -117,5 +64,56 @@ public class BookAddServlet extends HttpServlet {
             }
         }
         return releaseDate;
+    }
+
+    protected Integer getPages(HttpServletRequest req, List<String> errorMessages) {
+        Integer pages = null;
+        if (!req.getParameter("bookPages").isEmpty()) {
+            try {
+                pages = Integer.parseInt(req.getParameter("bookPages"));
+            } catch (NumberFormatException e) {
+                errorMessages.add("Wrong pages format!");
+            }
+        }
+        return pages;
+    }
+
+    protected Book assembleBook(HttpServletRequest req, Author author, LocalDate releaseDate, Integer pages) {
+        Book book = (Book) req.getAttribute("book");
+        if (null == book) {
+            book = new Book();
+        }
+
+        book.setIsbn(req.getParameter("isbn"));
+        book.setReleaseDate(releaseDate);
+        book.setTitle(req.getParameter("bookTitle"));
+        book.setCategory(req.getParameter("bookCategory"));
+        book.setPages(pages);
+        book.setAuthor(author);
+        book.setSummary(req.getParameter("bookSummary"));
+
+        return book;
+    }
+
+    protected void redirectIfErrors(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
+        if (!errorMessages.isEmpty()) {
+            req.setAttribute("authors", AuthorService.getInstance().getAll());
+            req.setAttribute("book", book);
+            req.setAttribute(MessageUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+        }
+    }
+
+    protected void createBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
+        if (BookService.getInstance().add(book)) {
+            req.setAttribute("success", "Book added to library!");
+            req.getRequestDispatcher("browse").forward(req, resp);
+        } else {
+            req.setAttribute("authors", AuthorService.getInstance().getAll());
+            req.setAttribute("book", book);
+            errorMessages.add("Could not save book to database");
+            req.setAttribute(MessageUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+        }
     }
 }

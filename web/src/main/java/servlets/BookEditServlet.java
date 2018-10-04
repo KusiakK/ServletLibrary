@@ -5,16 +5,14 @@ import models.Book;
 import services.AuthorService;
 import services.BookService;
 import utility.ErrorMessenger;
-import utility.ServletUtility;
+import utility.MessageUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class BookEditServlet extends BookAddServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> errorMessages = new ArrayList<>();
 
-        Author author = getAuthor(req, errorMessages);
+        Author author = getAuthor(req);
         LocalDate releaseDate = getDate(req, errorMessages);
         Integer pages = getPages(req, errorMessages);
 
@@ -62,10 +60,10 @@ public class BookEditServlet extends BookAddServlet {
         try {
             book = BookService.getInstance().get(Integer.parseInt(req.getParameter("book-id")));
         } catch (NullPointerException e) {
-            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "Book ID missing!");
+            req.setAttribute(MessageUtility.SINGLE_ERROR_ATTRIBUTE, "Book ID missing!");
             req.getRequestDispatcher("browse").forward(req, resp);
         } catch (NumberFormatException e) {
-            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to edit!");
+            req.setAttribute(MessageUtility.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to edit!");
             req.getRequestDispatcher("browse").forward(req, resp);
         }
         req.setAttribute("authors", AuthorService.getInstance().getAll());

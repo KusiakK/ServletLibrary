@@ -2,7 +2,7 @@ package servlets;
 
 import models.Book;
 import services.BookService;
-import utility.ServletUtility;
+import utility.MessageUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,10 +26,10 @@ public class BookShowServlet extends HttpServlet {
             int bookID = Integer.parseInt(bookIDParam);
             book = BookService.getInstance().get(bookID);
         } catch (NumberFormatException e) {
-            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to show! ");
+            req.setAttribute(MessageUtility.SINGLE_ERROR_ATTRIBUTE, "You must pick a book to show! ");
             req.getRequestDispatcher("browse").forward(req, resp);
         } catch (NullPointerException e) {
-            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "Book not found! ");
+            req.setAttribute(MessageUtility.SINGLE_ERROR_ATTRIBUTE, "Book not found! ");
             req.getRequestDispatcher("browse").forward(req, resp);
         }
         req.setAttribute("book", book);

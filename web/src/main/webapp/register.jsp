@@ -28,14 +28,14 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label for="passwordOne">Password</label>
-                        <input type="password" class="form-control" id="passwordOne" placeholder="Enter your password"
-                               name="passwordOne" required>
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password"
+                               name="password" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="passwordTwo">Confirm password</label>
-                        <input type="password" class="form-control" id="passwordTwo" placeholder="Confirm your password"
-                               name="passwordTwo" required>
+                        <label for="confirmPassword">Confirm password</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password"
+                               name="confirmPassword" required>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-lg btn-info d-block">Submit</button>

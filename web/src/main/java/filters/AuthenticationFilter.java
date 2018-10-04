@@ -1,6 +1,6 @@
 package filters;
 
-import utility.ServletUtility;
+import utility.MessageUtility;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -19,7 +19,7 @@ public class AuthenticationFilter implements Filter {
         } else if (null != httpReq.getSession(false) && null != httpReq.getSession(false).getAttribute("login")) {
             chain.doFilter(req, resp);
         } else {
-            req.setAttribute(ServletUtility.SINGLE_ERROR_ATTRIBUTE, "You have to log in first! ");
+            req.setAttribute(MessageUtility.SINGLE_ERROR_ATTRIBUTE, "You have to log in first! ");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
     }
