@@ -15,19 +15,17 @@ public class User {
     private Integer userID;
 
     @NotBlank
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String login;
 
     @NotBlank
     @Column(name = "password")
     private String password;
 
-    @NotBlank
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
 
-    @NotBlank
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
 
     @OneToMany(mappedBy = "userID")

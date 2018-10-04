@@ -48,7 +48,7 @@ public class RegistrationServlet extends HttpServlet {
     private void redirectIfErrors(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages) throws ServletException, IOException {
         if (!errorMessages.isEmpty()) {
             req.setAttribute(MessageUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
-            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+            req.getRequestDispatcher("register.jsp").forward(req, resp);
         }
     }
 
