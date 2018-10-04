@@ -3,7 +3,6 @@ package servlets;
 import models.User;
 import services.UserService;
 import utility.ErrorMessenger;
-import utility.LoginErrors;
 import utility.MessageUtility;
 
 import javax.servlet.ServletException;
