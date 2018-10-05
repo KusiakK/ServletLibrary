@@ -3,7 +3,9 @@ package repositories;
 import exceptions.IncorrectLoginDetailsException;
 import models.User;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 public class UserRepository extends GenericRepository<User, Integer> {
     public UserRepository() {
@@ -24,14 +26,14 @@ public class UserRepository extends GenericRepository<User, Integer> {
     }
 
     public User find(String login) {
-        Query query = em.createQuery("SELECT user FROM User user WHERE user.login = :login");
+        TypedQuery<User> query = em.createQuery("SELECT user FROM User user WHERE user.login = :login", User.class);
         query.setParameter("login", login);
 
         User user = null;
         try {
-            query.getSingleResult();
-        } catch (NullPointerException e) {
-            // do nothing
+            user = query.getSingleResult();
+        } catch (NoResultException e) {
+            return user;
         }
         return user;
 
