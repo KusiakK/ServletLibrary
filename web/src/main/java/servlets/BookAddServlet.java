@@ -106,7 +106,7 @@ public class BookAddServlet extends HttpServlet {
 
     protected void createBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
         if (BookService.getInstance().add(book)) {
-            req.setAttribute("success", "Book added to library!");
+            req.setAttribute("success", "Book successfully saved!");
             req.getRequestDispatcher("browse").forward(req, resp);
         } else {
             req.setAttribute("authors", AuthorService.getInstance().getAll());
