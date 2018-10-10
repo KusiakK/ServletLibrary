@@ -22,12 +22,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
     @OneToMany(mappedBy = "userID")
     private Set<Borrow> borrows;
 
@@ -49,22 +43,6 @@ public class User {
 
     public void setLogin(String borrowerID) {
         this.login = borrowerID;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public UserDetails getUserDetails() {
@@ -109,15 +87,13 @@ public class User {
         return Objects.equals(userID, user.userID) &&
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
                 Objects.equals(borrows, user.borrows) &&
                 Objects.equals(userDetails, user.userDetails);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userID, login, password, firstName, lastName, borrows, userDetails);
+        return Objects.hash(userID, login, password, borrows, userDetails);
     }
 
     @Override
@@ -126,8 +102,6 @@ public class User {
                 "userID=" + userID +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", borrows=" + borrows +
                 ", userDetails=" + userDetails +
                 '}';
