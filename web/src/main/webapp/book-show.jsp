@@ -36,15 +36,20 @@
             </div>
             <div class="row mt-5">
                 <div class="btn-group" role="group">
-                    <a class="btn btn-info btn-lg" href="browse" role="button">< Back</a>
-                    <c:choose>
-                        <c:when test="${requestScope.book.borrowed == false}">
-                            <a class="btn btn-info btn-lg" href="browse" role="button">Borrow</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="btn btn-warning btn-lg disabled" href="browse" role="button">Book borrowed!</a>
-                        </c:otherwise>
-                    </c:choose>
+                    <form action="showBook" method="post">
+                        <a class="btn btn-info btn-lg" href="browse" role="button">< Back</a>
+                        <c:choose>
+                            <c:when test="${requestScope.book.borrowed == false}">
+                                <input type="hidden" name="book-id" value="${requestScope.book.bookID}">
+                                <button type="submit" class="btn btn-info btn-lg" href="browse" role="button">Borrow
+                                </button>
+                            </c:when>
+                            <c:otherwise>
+                                <a role="button" class="btn btn-warning btn-lg disabled" href="browse">Book
+                                    borrowed!</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </form>
                 </div>
             </div>
         </div>
