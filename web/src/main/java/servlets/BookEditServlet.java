@@ -33,7 +33,7 @@ public class BookEditServlet extends BookAddServlet {
 
         redirectIfErrors(req, resp, errorMessages, book);
 
-        createBookAndRedirect(req, resp, errorMessages, book);
+        updateBookAndRedirect(req, resp, errorMessages, book);
     }
 
     @Override
@@ -54,6 +54,20 @@ public class BookEditServlet extends BookAddServlet {
         book.setSummary(req.getParameter("bookSummary"));
         return book;
     }
+
+    protected void updateBookAndRedirect(HttpServletRequest req, HttpServletResponse resp, List<String> errorMessages, Book book) throws ServletException, IOException {
+        if (BookService.getInstance().edit(book)) {
+            req.setAttribute("success", "Book successfully saved!");
+            req.getRequestDispatcher("browse").forward(req, resp);
+        } else {
+            req.setAttribute("authors", AuthorService.getInstance().getAll());
+            req.setAttribute("book", book);
+            errorMessages.add("Could not save book to database");
+            req.setAttribute(MessageUtility.ERROR_LIST_ATTRIBUTE, errorMessages);
+            req.getRequestDispatcher("book-add.jsp").forward(req, resp);
+        }
+    }
+
 
     private void loadPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Book book = null;
