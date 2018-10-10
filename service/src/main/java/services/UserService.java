@@ -24,6 +24,10 @@ public class UserService {
         return repository.login(login, password);
     }
 
+    public User findUser(String login) {
+        return repository.find(login);
+    }
+
     public Boolean isLoginTaken(String login) {
         return repository.find(login) != null;
     }

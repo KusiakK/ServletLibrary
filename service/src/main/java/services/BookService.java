@@ -1,6 +1,7 @@
 package services;
 
 import models.Book;
+import models.User;
 import repositories.BookRepository;
 
 import java.util.List;

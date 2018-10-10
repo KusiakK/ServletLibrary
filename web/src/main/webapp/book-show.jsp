@@ -36,7 +36,7 @@
             </div>
             <div class="row mt-5">
                 <div class="btn-group" role="group">
-                    <form action="showBook" method="post">
+                    <form action="borrowBook" method="post">
                         <a class="btn btn-info btn-lg" href="browse" role="button">< Back</a>
                         <c:choose>
                             <c:when test="${requestScope.book.borrowed == false}">

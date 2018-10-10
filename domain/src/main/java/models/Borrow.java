@@ -27,6 +27,12 @@ public class Borrow {
     public Borrow() {
     }
 
+    public Borrow(Book book, User user) {
+        this.bookID = book;
+        this.userID = user;
+        this.rentalDate = LocalDate.now();
+    }
+
     public Integer getBorrowID() {
         return borrowID;
     }

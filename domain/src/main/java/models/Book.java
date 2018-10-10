@@ -134,6 +134,11 @@ public class Book {
         this.borrows = borrows;
     }
 
+    public void borrow(User user) {
+        this.borrowed = true;
+        this.borrows.add(new Borrow(this, user));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
